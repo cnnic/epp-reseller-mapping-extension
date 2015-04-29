@@ -1,0 +1,1147 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd"
+[
+    <!ENTITY RFC2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+    <!ENTITY RFC3688 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'>
+    <!ENTITY RFC5730 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5730.xml'>
+    <!ENTITY RFC5733 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5733.xml'>
+    <!ENTITY RFC7451 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7451.xml'>
+		
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt'?>
+<?rfc strict="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="std" docName="draft-zhou-eppext-reseller-mapping-00" ipr="pre5378Trust200902">
+    <!-- category values: std, bcp, info, exp, and historic -->
+    <front>
+        <title abbrev="EPP Reseller Mapping">Extensible Provisioning Protocol (EPP) Reseller Mapping</title>
+        <author fullname="Linlin Zhou" initials="L" surname="Zhou">
+            <organization>CNNIC</organization>
+            <address>
+                <postal>
+                    <street>4 South 4th Street, Zhongguancun, Haidian District</street>
+                    <city>Beijing</city>
+                    <region>Beijing</region>
+                    <code>100190</code>
+                    <country>China</country>
+                </postal>
+                <phone>+86 10 5881 2677</phone>
+                <email>zhoulinlin@cnnic.cn</email>
+            </address>
+        </author>
+        <author fullname="Ning Kong" initials="N" surname="Kong">
+            <organization>CNNIC</organization>
+            <address>
+                <postal>
+                    <street>4 South 4th Street, Zhongguancun, Haidian District</street>
+                    <city>Beijing</city>
+                    <region>Beijing</region>
+                    <code>100190</code>
+                    <country>China</country>
+                </postal>
+                <phone>+86 10 5881 3147</phone>
+                <email>nkong@cnnic.cn</email>
+            </address>
+        </author>
+        <author fullname="Chao Qi" initials="C" surname="Qi">
+            <organization>CNNIC</organization>
+            <address>
+                <postal>
+                    <street>4 South 4th Street, Zhongguancun, Haidian District</street>
+                    <city>Beijing</city>
+                    <region>Beijing</region>
+                    <code>100190</code>
+                    <country>China</country>
+                </postal>
+                <phone>+86 10 5881 3146</phone>
+                <email>qichao@cnnic.cn</email>
+            </address>
+        </author>
+        <author fullname="Xiaodong Lee" initials="X" surname="Lee">
+            <organization>CNNIC</organization>
+            <address>
+                <postal>
+                    <street>4 South 4th Street, Zhongguancun, Haidian District</street>
+                    <city>Beijing</city>
+                    <region>Beijing</region>
+                    <code>100190</code>
+                    <country>China</country>
+                </postal>
+                <phone>+86 10 5881 3020</phone>
+                <email>xl@cnnic.cn</email>
+            </address>
+        </author>
+        <author fullname="James Gould" initials="J" surname="Gould">
+            <organization>VeriSign, Inc.</organization>
+            <address>
+                <postal>
+                    <street>12061 Bluemont Way</street>
+                    <city>Reston</city>
+                    <region>VA</region>
+                    <code>20190</code>
+                    <country>US</country>
+                </postal>
+                <email>jgould@verisign.com</email>
+            </address>
+        </author>
+        <date month="April" year="2015" />
+        <area>Internet</area>
+        <workgroup>Internet Engineering Task Force</workgroup>
+        <keyword>epp registry reseller object mapping extension</keyword>
+        <abstract>
+            <t>This document describes an Extensible Provisioning Protocol (EPP) mapping for provisioning and management of registry reseller stored in a shared central repository. Specified in Extensible Markup Language (XML), this extended mapping is applied to provide additional features required for the provisioning of registry resellers.</t>
+        </abstract>
+    </front>
+    <middle>
+        <section title="Introduction">
+			<t>Domain resellers are the individuals or companies act as agents for ICANN accredited registrars. A domain name registrar may have several resellers to help them sell domain names to end users.</t>
+			<t>This document describes an extension mapping for version 1.0 of the Extensible Provisioning Protocol (EPP) <xref target="RFC5730"></xref>. This EPP mapping specifies the reseller object mapping.</t>
+            <t>This document is specified using the XML 1.0 as described in 
+            <xref target="W3C.REC-xml-20040204"></xref> and XML Schema notation as described in 
+            <xref target="W3C.REC-xmlschema-1-20041028"></xref> and 
+            <xref target="W3C.REC-xmlschema-2-20041028"></xref>.</t>
+        </section>
+        <section title="Conventions Used in This Document">
+            <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in 
+            <xref target="RFC2119"></xref>.</t>
+            <t>In examples, "C:" represents lines sent by a protocol client and "S:" represents lines returned by a protocol server. Indentation and white space in examples are provided only to illustrate element relationships and are not a REQUIRED feature of this specification.</t>
+            <t>XML is case sensitive. Unless stated otherwise, XML specifications and examples provided in this document MUST be interpreted in the character case presented to develop a conforming implementation.</t>
+            <t>reseller-1.0 in this document is used as an abbreviation for urn:ietf:params:xml:ns:reseller-1.0.</t>
+        </section>
+        <section title="Object Attributes">
+            <t>An EPP reseller object has attributes and associated values that can be viewed and modified by the sponsoring client or the server. This section describes each attribute type in detail. The formal syntax for the attribute values described here can be found in the "Formal Syntax" section of this document and in the appropriate normative references.</t>
+            <section title="Reseller Identifier">
+                <t>Reseller identifier provides the ID of the reseller of a sponsoring registrar. Its corresponding element is &lt;reseller:id&gt; defined in this document.</t>
+            </section>
+			<section title="Reseller State">
+                <t>A reseller object MUST always have at least one associated status value. Valid values include "ok", "public", "private", "readonly" and "terminated".</t>
+				<t>State Value Descriptions:</t>
+				<t>
+					<list style="symbols">
+						<t>ok: the normal status value for the reseller object.</t>
+						<t>public: the reseller object can be shared by different registrars.</t>
+						<t>private: the reseller object belongs to designated registrar.</t>
+						<t>readonly: the reseller object cannot be updated.</t>
+						<t>terminated: deactivated object that could no be used any more.</t>
+					</list>
+				</t>
+            </section>
+			<!-- Delete type element-->
+            <!-- <section title="Reseller Type">
+                <t>Reseller object has a type value including "registrar" and "reseller". Its corresponding element is &lt;reseller:type&gt; defined in this document.</t>
+            </section> -->
+			<section title="Parent Identifier">	
+				<t>There could be more than one layer of resellers. The element of parent identifier shows the upper level reseller identifier. Its corresponding element is &lt;reseller:parentId&gt; defined in this document. The parent identifier would be null if the reseller is the first level reseller, namely a registrar of a registry. If a reseller is the N-tier reseller, the parent identifier will be set as the value of its upper level reseller's identifier.</t>
+			</section>
+			<section title="URL">
+				<t>The URL element represents the reseller web home page. Its corresponding element is &lt;reseller:url&gt; defined in this document.</t>
+			</section>
+			<section title="WHOIS Information">
+				<t>The WHOIS information contains the name and URL of a reseller's WHOIS server.</t>
+			</section>
+			<section title="Disclosure of Data Elements and Attributes">
+				<t>This document specifies three more elements in addition to the elements described in Section 2.9 of <xref target="RFC5733"></xref>.</t>
+				<t>The &lt;reseller:disclose&gt; element MUST contain at least one of the following child elements:</t>
+				<t>&lt;reseller:name type="int"/&gt;</t>
+				<t>&lt;reseller:name type="loc"/&gt;</t>
+				<t>&lt;reseller:org type="int"/&gt;</t>
+				<t>&lt;reseller:org type="loc"/&gt;</t>
+				<t>&lt;reseller:addr type="int"/&gt;</t>
+				<t>&lt;reseller:addr type="loc"/&gt;</t>
+				<t>&lt;reseller:voice/&gt;</t>
+				<t>&lt;reseller:fax/&gt;</t>
+				<t>&lt;reseller:email/&gt;</t>
+				<t>&lt;reseller:url/&gt;</t>
+				<t>&lt;reseller:whoisInfo/&gt;</t>
+				<t>&lt;reseller:contact/&gt;</t>
+			</section>
+        </section>
+        <section title="EPP Command Mapping">
+            <t>A detailed description of the EPP syntax and semantics can be found in the EPP core protocol specification 
+            <xref target="RFC5730"></xref>. The command mappings described here are specifically for use in provisioning and managing reseller information via EPP.</t>
+            <section title="EPP Query Commands">
+                <t>EPP provides three commands to retrieve domain information: &lt;check&gt; to determine if a reseller object can be provisioned within a repository, &lt;info&gt; to retrieve detailed information associated with a reseller object, and &lt;transfer&gt; to retrieve information regarding the transfer status of the reseller object.</t>
+                <section title="EPP &lt;check&gt; Command">
+                    <t>The EPP &lt;check&gt; command is used to determine if an object can be provisioned within a repository. It provides a hint that allows a client to anticipate the success or failure of provisioning an object using the &lt;create&gt; command, as object-provisioning requirements are ultimately a matter of server policy.</t>
+					<t>In addition to the standard EPP command elements, the &lt;check&gt; command MUST contain a &lt;reseller:check&gt; element that identifies the reseller namespace. The &lt;reseller:check&gt; element contains the following child elements:</t>
+					<t>
+						<list style="symbols">
+							<t>One or more &lt;reseller:id&gt; elements that contain the server-unique identifier of the reseller objects to be queried.</t>
+						</list>
+					</t>
+					<t>Example &lt;check&gt; command:</t>
+					<figure>
+                        <artwork>
+                            <![CDATA[
+C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+C:  <command>
+C:    <check>
+C:      <reseller:check
+C:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+C:        <reseller:id>res1523</reseller:id>
+C:        <reseller:id>re1523</reseller:id>
+C:        <reseller:id>1523res</reseller:id>
+C:      </reseller:check>
+C:    </check>
+C:    <clTRID>ABC-12345</clTRID>
+C:  </command>
+C:</epp>
+                          ]]>
+						</artwork>
+                    </figure>
+					<t>When a &lt;check&gt; command has been processed successfully, the EPP &lt;resData&gt; element MUST contain a child &lt;reseller:chkData&gt; element that identifies the reseller namespace. The &lt;reseller:chkData&gt; element contains one or more &lt;reseller:cd&gt; elements that contain the following child elements:</t>
+					<t>
+						<list style="symbols">
+							<t>A &lt;reseller:id&gt; element that identifies the queried object. This element MUST contain an "avail" attribute whose value indicates object availability (can it be provisioned or not) at the moment the &lt;check&gt; command was completed. A value of "1" or "true" means that the object can be provisioned. A value of "0" or "false" means that the object cannot be provisioned.</t>
+							<t>An OPTIONAL &lt;reseller:reason&gt; element that MAY be provided when an object cannot be provisioned. If present, this element contains server-specific text to help explain why the object cannot be provisioned. This text MUST be represented in the response language previously negotiated with the client; an OPTIONAL "lang" attribute MAY be present to identify the language if the negotiated value is something other than the default value of "en"(English).</t>
+						</list>
+					</t>
+					<t>Example &lt;check&gt; response:</t>
+					<figure>
+                        <artwork>
+                            <![CDATA[
+S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+S:  <response>
+S:    <result code="1000">
+S:      <msg>Command completed successfully</msg>
+S:    </result>
+S:    <resData>
+S:      <reseller:chkData
+S:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+S:        <reseller:cd>
+S:          <reseller:id avail="1">res1523</reseller:id>
+S:        </reseller:cd>
+S:        <reseller:cd>
+S:          <reseller:id avail="0">re1523</reseller:id>
+S:          <reseller:reason>In use</reseller:reason>
+S:        </reseller:cd>
+S:        <reseller:cd>
+S:          <reseller:id avail="1">1523res</reseller:id>
+S:        </reseller:cd>
+S:      </reseller:chkData>
+S:    </resData>
+S:    <trID>
+S:      <clTRID>ABC-12345</clTRID>
+S:      <svTRID>54322-XYZ</svTRID>
+S:    </trID>
+S:  </response>
+S:</epp>
+							 ]]>
+						</artwork>
+                    </figure>
+					<t>An EPP error response MUST be returned if a &lt;check&gt; command cannot be processed for any reason.</t>
+                </section>
+                <section title="EPP &lt;info&gt; Command">
+                    <t> The EPP &lt;info&gt; command is used to retrieve information associated with a reseller object.  In addition to the standard EPP command elements, the &lt;info&gt; command MUST contain a &lt;reseller:info&gt; element that identifies the reseller namespace. The &lt;reseller:info&gt; element contains the following child elements:</t>
+					<t>
+						<list style="symbols">
+							<t>A &lt;reseller:id&gt; element that contains the server-unique identifier of the reseller object to be queried.</t>
+						</list>
+					</t>
+                    <t>Example &lt;info&gt; command:</t>
+                    <figure>
+                        <artwork>
+                            <![CDATA[
+C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+C:  <command>
+C:    <info>
+C:      <reseller:info
+C:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+C:        <reseller:id>res1523</reseller:id>
+C:      </reseller:info>
+C:    </info>
+C:    <clTRID>ABC-12345</clTRID>
+C:  </command>
+C:</epp>
+                          ]]>
+						</artwork>
+                    </figure>
+                    <t>When an &lt;info&gt; command has been processed successfully, the EPP &lt;resData&gt; element MUST contain a child &lt;reseller:infData&gt; element that identifies the reseller namespace. The &lt; reseller:infData&gt; element contains the following child elements:</t>
+                    <t>
+                        <list style="symbols">
+                            <t>A &lt;reseller:id&gt; element that contains the server-unique identifier of the reseller object.</t>
+                            <t>A &lt;reseller:roid&gt; element that contains the Repository Object IDentifier assigned to the reseller object when the object was created.</t>
+							<t>A &lt;reseller:state&gt; element that contains the operational status of the reseller.</t>
+							<!--<t>A &lt;reseller:type&gt; element that describes the type of a reseller. It could be a registrar or reseller.</t>-->
+							<t>An OPTIONAL &lt;reseller:parentId&gt; element that contains the identifier of the parent object.</t>
+							<t>One or two &lt;reseller:postalInfo&gt; elements that contain postal-address information. Two elements are provided so that address information can be provided in both internationalized and localized forms; a "type" attribute is used to identify the two forms. If an internationalized form (type="int") is provided, element content MUST be represented in a subset of UTF-8 that can be represented in the 7-bit US-ASCII character set. If a localized form (type="loc") is provided, element content MAY be represented in unrestricted UTF-8. The &lt;reseller:postalInfo&gt; element contains the following child elements:
+								<list style="symbols">
+									<t>A &lt;reseller:name&gt; element that contains the name of the individual or role represented by the reseller.</t>
+									<t>An OPTIONAL &lt;reseller:org&gt; element that contains the name of the organization with which the reseller is affiliated.</t>
+									<t>A &lt;reseller:addr&gt; element that contains address information associated with the reseller. A &lt;reseller:addr&gt; element contains the following child elements:
+										<list style="symbols">
+											<t>One, two, or three OPTIONAL &lt;reseller:street&gt; elements that contain the reseller's street address.</t>
+											<t>A &lt;reseller:city&gt; element that contains the reseller's city.</t>
+											<t>An OPTIONAL &lt;reseller:sp&gt; element that contains the reseller's state or province.</t>
+											<t>An OPTIONAL &lt;reseller:pc&gt; element that contains the reseller's postal code.</t>
+											<t>A &lt;reseller:cc&gt; element that contains the reseller's country code.</t>
+										</list>
+									</t>
+								</list>
+							</t>
+							<t>An OPTIONAL &lt;reseller:voice&gt; element that contains the reseller's voice telephone number.</t>
+							<t>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</t>
+							<t>A &lt;reseller:email&gt; element that contains the reseller's email address.</t>
+							<t>A &lt;reseller:url&gt; element that contains the reseller's web home page.</t>
+							<t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
+								<list style="symbols">
+									<t>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</t>
+									<t>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</t>
+								</list>
+							</t>
+							<t>One or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with the reseller object.</t>
+							<t>A &lt;reseller:clID&gt; element that contains the identifier of the sponsoring client.</t>
+							<t>A &lt;reseller:crID&gt; element that contains the identifier of the client that created the reseller object.</t>
+							<t>A &lt;reseller:crDate&gt; element that contains the date and time of reseller-object creation.</t>
+							<t> A &lt;reseller:upID&gt; element that contains the identifier of the client that last updated the reseller object. This element MUST NOT be present if the contact has never been modified.</t>
+							<t>A &lt;reseller:upDate&gt; element that contains the date and time of the most recent reseller-object modification. This element MUST NOT be present if the reseller object has never been modified.</t>
+							<t>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See Section 2.9 in <xref target="RFC5733"></xref> for a description of the child elements contained within the &lt;reseller:disclose&gt; element</t>
+                        </list>
+                    </t>
+					<t>If the quering client is the sponsoring registrar of the reseller, all of the reseller object information is accessible. Example &lt;info&gt; response:</t>
+                    <figure>
+                        <artwork>
+                            <![CDATA[
+S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+S:  <response>
+S:    <result code="1000">
+S:      <msg>Command completed successfully</msg>
+S:    </result>
+S:    <resData>
+S:      <reseller:infData
+S:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+S:        <reseller:id>res1523</reseller:id>
+S:        <reseller:roid>res1523-REP</reseller:roid>
+S:        <reseller:state>ok</reseller:state>
+S:        <reseller:parentId>1523res</reseller:parentId>
+S:        <reseller:postalInfo type="int">
+S:          <reseller:name>John Doe</reseller:name>
+S:          <reseller:org>Example Inc.</contact:org>
+S:          <reseller:addr>
+S:            <reseller:street>123 Example Dr.</reseller:street>
+S:            <reseller:street>Suite 100</reseller:street>
+S:            <reseller:city>Dulles</reseller:city>
+S:            <reseller:sp>VA</reseller:sp>
+S:            <reseller:pc>20166-6503</reseller:pc>
+S:            <reseller:cc>US</reseller:cc>
+S:          </reseller:addr>
+S:        </reseller:postalInfo>
+S:        <reseller:voice x="1234">+1.7035555555</reseller:voice>
+S:        <reseller:fax>+1.7035555556</reseller:fax>
+S:        <reseller:email>jdoe@example.com</reseller:email>
+S:        <reseller:url>http://example.test</reseller:url>
+S:        <reseller:whoisInfo>
+S:          <reseller:name>whois.example.test</reseller:name>
+S:          <reseller:url>http://whois.example.test</reseller:url>
+S:        </reseller:whoisInfo>
+S:        <reseller:contact type="admin">sh8013</reseller:contact>
+S:        <reseller:contact type="billing">sh8013</reseller:contact>
+S:        <reseller:clID>ClientY</reseller:clID>
+S:        <reseller:crID>ClientX</reseller:crID>
+S:        <reseller:crDate>1999-04-03T22:00:00.0Z</reseller:crDate>
+S:        <reseller:upID>ClientX</reseller:upID>
+S:        <reseller:upDate>1999-12-03T09:00:00.0Z</reseller:upDate>
+S:        <reseller:trDate>2000-04-08T09:00:00.0Z</reseller:trDate>
+S:        <reseller:disclose flag="0">
+S:          <reseller:voice/>
+S:          <reseller:email/>
+S:        </reseller:disclose>
+S:      </reseller:infData>
+S:    </resData>
+S:    <trID>
+S:      <clTRID>ABC-12345</clTRID>
+S:      <svTRID>54322-XYZ</svTRID>
+S:    </trID>
+S:  </response>
+S:</epp>
+							]]>
+						</artwork>
+                    </figure>
+					<t>If the quering client is not the sponsoring registrar of the reseller, the reseller object information can be displayed according to the disclosure preference using an OPTIONAL &lt;reseller:disclose&gt; element. Example &lt;info&gt; response:</t>
+                    <figure>
+                        <artwork>
+                            <![CDATA[
+S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+S:  <response>
+S:    <result code="1000">
+S:      <msg>Command completed successfully</msg>
+S:    </result>
+S:    <resData>
+S:      <reseller:infData
+S:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+S:        <reseller:id>res1523</reseller:id>
+S:        <reseller:roid>res1523-REP</reseller:roid>
+S:        <reseller:state>ok</reseller:state>
+S:        <reseller:parentId>1523res</reseller:parentId>
+S:        <reseller:postalInfo type="int">
+S:          <contact:name>John Doe</contact:name>
+S:          <contact:org>Example Inc.</contact:org>
+S:          <contact:addr>
+S:            <contact:street>123 Example Dr.</contact:street>
+S:            <contact:street>Suite 100</contact:street>
+S:            <contact:city>Dulles</contact:city>
+S:            <contact:sp>VA</contact:sp>
+S:            <contact:pc>20166-6503</contact:pc>
+S:            <contact:cc>US</contact:cc>
+S:          </contact:addr>
+S:        </reseller:postalInfo>
+S:        <reseller:fax>+1.7035555556</reseller:fax>
+S:        <reseller:url>http://example.test</reseller:url>
+S:        <reseller:whoisInfo>
+S:          <reseller:name>whois.example.test</reseller:name>
+S:          <reseller:url>http://whois.example.test</reseller:url>
+S:        </reseller:whoisInfo>
+S:        <reseller:contact type="admin">sh8013</reseller:contact>
+S:        <reseller:contact type="billing">sh8013</reseller:contact>
+S:        <reseller:clID>ClientY</reseller:clID>
+S:        <reseller:crID>ClientX</reseller:crID>
+S:        <reseller:crDate>1999-04-03T22:00:00.0Z</reseller:crDate>
+S:        <reseller:upID>ClientX</reseller:upID>
+S:        <reseller:upDate>1999-12-03T09:00:00.0Z</reseller:upDate>
+S:        <reseller:trDate>2000-04-08T09:00:00.0Z</reseller:trDate>
+S:        <reseller:disclose flag="0">
+S:          <reseller:voice/>
+S:          <reseller:email/>
+S:        </reseller:disclose>
+S:      </reseller:infData>
+S:    </resData>
+S:    <trID>
+S:      <clTRID>ABC-12345</clTRID>
+S:      <svTRID>54322-XYZ</svTRID>
+S:    </trID>
+S:  </response>
+S:</epp>
+							]]>
+						</artwork>
+                    </figure>
+                    <t>An EPP error response MUST be returned if an &lt;info&gt; command cannot be processed for any reason.</t>
+                </section>
+                <section title="EPP &lt;transfer&gt; Command">
+                    <t>The transfer semantics does not apply to reseller object. No EPP &lt;transfer&gt; command is defined in this document.</t>
+                </section>
+            </section>
+            <section title="EPP Transform Commands">
+                <t>EPP provides four commands to transform reseller-object information: &lt;create&gt; to create an instance of a reseller object, &lt;delete&gt; to delete an instance of a reseller object, &lt;transfer&gt; to manage reseller-object sponsorship changes, and &lt;update&gt; to change information associated with a reseller object. This document does not define a mapping for the EPP &lt;renew&gt; command.</t>
+				<t>Transform commands are typically processed and completed in real time. Server operators MAY receive and process transform commands but defer completing the requested action if human or third-party review is required before the requested action can be completed. In such situations, the server MUST return a 1001 response code to the client to note that the command has been received and processed but that the requested action is pending. The server MUST also manage the status of the object that is the subject of the command to reflect the initiation and completion of the requested action. Once the action has been completed, all clients involved in the transaction MUST be notified using a service message that the action has been completed and that the status of the object has changed. Other notification methods MAY be used in addition to the required service message.</t>	
+                <section title="EPP &lt;create&gt; Command">
+                    <t> The EPP &lt;create&gt; command provides a transform operation that allows a client to create a reseller object. In addition to the standard EPP command elements, the &lt;create&gt; command MUST contain a &lt;reseller:create&gt; element that identifies the reseller namespace. The &lt;reseller:create&gt; element contains the following child elements:</t>
+					<t>
+						<list style="symbols">
+							<t>A &lt;reseller:id&gt; element that contains the desired server-unique identifier for the contact to be created.</t>
+							<!-- <t>A &lt;reseller:type&gt; element that describes the type of a reseller. It could be a registrar or reseller.</t> -->
+							<t>A &lt;reseller:state&gt; element that contains the operational status of the reseller.</t>
+							<t>An OPTIONAL &lt;reseller:parentId&gt; element that contains the identifier of the parent object.</t>
+							<t>One or two &lt;reseller:postalInfo&gt; elements that contain postal- address information. Two elements are provided so that address information can be provided in both internationalized and localized forms; a "type" attribute is used to identify the two forms. If an internationalized form (type="int") is provided, element content MUST be represented in a subset of UTF-8 that can be represented in the 7-bit US-ASCII character set. If a localized form (type="loc") is provided, element content MAY be represented in unrestricted UTF-8. The &lt;reseller:postalInfo&gt; element contains the following child elements:
+								<list style="symbols">
+									<t>A &lt;reseller:name&gt; element that contains the name of the individual or role represented by the reseller.</t>
+									<t>An OPTIONAL &lt;reseller:org&gt; element that contains the name of the organization with which the reseller is affiliated.</t>
+									<t>A &lt;reseller:addr&gt; element that contains address information associated with the reseller. A &lt;reseller:addr&gt; element contains the following child elements:
+										<list style="symbols">
+											<t>One, two, or three OPTIONAL &lt;reseller:street&gt; elements that contain the reseller's street address.</t>
+											<t>A &lt;reseller:city&gt; element that contains the reseller's city.</t>
+											<t>An OPTIONAL &lt;reseller:sp&gt; element that contains the reseller's state or province.</t>
+											<t>An OPTIONAL &lt;reseller:pc&gt; element that contains the reseller's postal code.</t>
+											<t>A &lt;reseller:cc&gt; element that contains the reseller's country code.</t>
+										</list>
+									</t>
+								</list>
+							</t>
+							<t>An OPTIONAL &lt;reseller:voice&gt; element that contains the reseller's voice telephone number.</t>
+							<t>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</t>
+							<t>A &lt;reseller:email&gt; element that contains the reseller's email address.</t>
+							<t>A &lt;reseller:url&gt; element that contains the reseller's web home page.</t>
+							<t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
+								<list style="symbols">
+									<t>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</t>
+									<t>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</t>
+								</list>
+							</t>
+							<t>One or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with the reseller object.</t>
+							<t>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See Section 2.9 in <xref target="RFC5733"></xref> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</t>
+						</list>
+					</t>
+					<t>Example &lt;create&gt; command:</t>
+					<figure>
+                        <artwork>
+                            <![CDATA[
+C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+C:  <command>
+C:    <create>
+C:      <reseller:create
+C:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+C:        <reseller:id>res1523</reseller:id>
+C:        <reseller:state>ok</reseller:state>
+C:        <reseller:parentId>1523res</reseller:parentId>
+C:        <reseller:postalInfo type="int">
+C:          <reseller:name>John Doe</reseller:name>
+C:          <reseller:org>Example Inc.</reseller:org>
+C:          <reseller:addr>
+C:            <reseller:street>123 Example Dr.</reseller:street>
+C:            <reseller:street>Suite 100</reseller:street>
+C:            <reseller:city>Dulles</reseller:city>
+C:            <reseller:sp>VA</reseller:sp>
+C:            <reseller:pc>20166-6503</reseller:pc>
+C:            <reseller:cc>US</reseller:cc>
+C:          </reseller:addr>
+C:        </reseller:postalInfo>
+C:        <reseller:voice x="1234">+1.7035555555</reseller:voice>
+C:        <reseller:fax>+1.7035555556</reseller:fax>
+C:        <reseller:email>jdoe@example.com</reseller:email>
+C:        <reseller:url>http://example.test</reseller:url>
+C:        <reseller:whoisInfo>
+C:          <reseller:name>whois.example.test</reseller:name>
+C:          <reseller:url>http://whois.example.test</reseller:url>
+C:        </reseller:whoisInfo>
+C:        <reseller:contact type="admin">sh8013</reseller:contact>
+C:        <reseller:contact type="billing">sh8013</reseller:contact>
+C:        <reseller:disclose flag="0">
+C:          <reseller:voice/>
+C:          <reseller:email/>
+C:        </reseller:disclose>
+C:      </reseller:create>
+C:    </create>
+C:    <clTRID>ABC-12345</clTRID>
+C:  </command>
+C:</epp>
+							]]>
+						</artwork>
+                    </figure>
+                    <t>When a &lt;create&gt; command has been processed successfully, the EPP &lt;resData&gt; element MUST contain a child &lt;reseller:creData&gt; element that identifies the reseller namespace. The &lt;reseller:creData&gt; element contains the following child elements:</t>
+                    <t>
+                        <list style="symbols">
+                            <t>A &lt;reseller:id&gt; element that contains the server-unique identifier for the created reseller.</t>
+                            <t>A &lt;reseller:crDate&gt; element that contains the date and time of reseller-object creation.</t>
+                        </list>
+                    </t>
+                    <t>Example &lt;create&gt; response:</t>
+                    <figure>
+                        <artwork>
+                            <![CDATA[
+S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+S:  <response>
+S:    <result code="1000">
+S:      <msg>Command completed successfully</msg>
+S:    </result>
+S:    <resData>
+S:      <reseller:creData
+S:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+S:        <reseller:id>res1523</reseller:id>
+S:        <reseller:crDate>1999-04-03T22:00:00.0Z</reseller:crDate>
+S:      </reseller:creData>
+S:    </resData>
+S:    <trID>
+S:      <clTRID>ABC-12345</clTRID>
+S:      <svTRID>54321-XYZ</svTRID>
+S:    </trID>
+S:  </response>
+S:</epp>
+							]]>
+						</artwork>
+                    </figure>
+                    <t>An EPP error response MUST be returned if a &lt;create&gt; command cannot be processed for any reason.</t>
+                </section>
+                <section title="EPP &lt;delete&gt; Command">
+                    <t>The EPP &lt;delete&gt; command provides a transform operation that allows a client to delete a reseller object. In addition to the standard EPP command elements, the &lt;delete&gt; command MUST contain a &lt;reseller:delete&gt; element that identifies the reseller namespace. The &lt;reseller:delete&gt; element MUST contain the following child element:</t>
+					<t>
+						<list style="symbols">
+							<t> A &lt;reseller:id&gt; element that contains the server-unique identifier of the reseller object to be deleted.</t>
+						</list>
+					</t>
+					<t>A reseller object SHOULD NOT be deleted if it is associated with other known objects. An associated reseller SHOULD NOT be deleted until associations with other known objects have been broken. A server SHOULD notify clients that object relationships exist by sending a 2305 error response code when a &lt;delete&gt; command is attempted and fails due to existing object relationships.</t>
+					<t>Example &lt;delete&gt; command:</t>
+					<figure>
+                        <artwork>
+                            <![CDATA[
+C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+C:  <command>
+C:    <delete>
+C:      <reseller:delete
+C:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+C:        <reseller:id>res1523</reseller:id>
+C:      </reseller:delete>
+C:    </delete>
+C:    <clTRID>ABC-12345</clTRID>
+C:  </command>
+C:</epp>
+							]]>
+						</artwork>
+                    </figure>
+					<t>When a &lt;delete&gt; command has been processed successfully, a server MUST respond with an EPP response with no &lt;resData&gt; element.</t>
+					<t>Example &lt;delete&gt; response:</t>
+					<figure>
+                        <artwork>
+                            <![CDATA[
+S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+S:  <response>
+S:    <result code="1000">
+S:      <msg>Command completed successfully</msg>
+S:    </result>
+S:    <trID>
+S:      <clTRID>ABC-12345</clTRID>
+S:      <svTRID>54321-XYZ</svTRID>
+S:    </trID>
+S:  </response>
+S:</epp>
+							]]>
+						</artwork>
+                    </figure>
+					<t>An EPP error response MUST be returned if a &lt;delete&gt; command cannot be processed for any reason.</t>
+                </section>
+                <section title="EPP &lt;renew&gt; Command">
+                    <t>Renewal semantics do not apply to reseller objects, so there is no mapping defined for the EPP &lt;renew&gt; command.</t>
+                </section>
+                <section title="EPP &lt;transfer&gt; Command">
+                    <t>Transfer semantics do not apply to reseller objects, so there is no mapping defined for the EPP &lt;transfer&gt; command.</t>
+                </section>
+                <section title="EPP &lt;update&gt; Command">
+                    <t>The EPP &lt;update&gt; command provides a transform operation that allows a client to modify the attributes of a reseller object. In addition to the standard EPP command elements, the &lt;update&gt; command MUST contain a &lt;reseller:update&gt; element that identifies the reseller namespace. The &lt;reseller:update&gt; element contains the following child elements:</t>
+                    <t>
+                        <list style="symbols">
+							<t>A &lt;reseller:id&gt; element that contains the server-unique identifier of the reseller object to be updated.</t>
+                            <t>An OPTIONAL &lt;reseller:add&gt; element that contains attribute values to be added to the object.</t>
+                            <t>An OPTIONAL &lt;reseller:rem&gt; element that contains attribute values to be removed from the object.</t>
+                            <t>An OPTIONAL &lt;reseller:chg&gt; element that contains attribute values to be changed.</t>
+                        </list>
+                    </t>
+                    <t>At least one &lt;reseller:add&gt;, &lt;reseller:rem&gt; or &lt;reseller:rem&gt; element MUST be provided if the command is not being extended. All of these elements MAY be omitted if an &lt;update&gt; extension is present. The &lt;reseller:add&gt; and &lt;reseller:rem&gt; elements contain the following child element:</t>
+                    <t>
+                        <list style="symbols">
+                            <t>One or more &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with or removed from the reseller object.</t>
+                        </list>
+                    </t>
+					<t>A &lt;reseller:chg&gt; element contains the following OPTIONAL child elements. At least one child element MUST be present:</t>
+					<t>
+						<list style="symbols">
+							<t>A &lt;reseller:state&gt; element that contains the operational status of the reseller.</t>
+							<t>An OPTIONAL &lt;reseller:parentId&gt; element that contains the identifier of the parent object.</t>
+							<t>One or two &lt;reseller:postalInfo&gt; elements that contain postal- address information. Two elements are provided so that address information can be provided in both internationalized and localized forms; a "type" attribute is used to identify the two forms. If an internationalized form (type="int") is provided, element content MUST be represented in a subset of UTF-8 that can be represented in the 7-bit US-ASCII character set. If a localized form (type="loc") is provided, element content MAY be represented in unrestricted UTF-8. The &lt;reseller:postalInfo&gt; element contains the following child elements:
+								<list style="symbols">
+									<t>A &lt;reseller:name&gt; element that contains the name of the individual or role represented by the reseller.</t>
+									<t>An OPTIONAL &lt;reseller:org&gt; element that contains the name of the organization with which the reseller is affiliated.</t>
+									<t>A &lt;reseller:addr&gt; element that contains address information associated with the reseller. A &lt;reseller:addr&gt; element contains the following child elements:
+										<list style="symbols">
+											<t>One, two, or three OPTIONAL &lt;reseller:street&gt; elements that contain the reseller's street address.</t>
+											<t>A &lt;reseller:city&gt; element that contains the reseller's city.</t>
+											<t>An OPTIONAL &lt;reseller:sp&gt; element that contains the reseller's state or province.</t>
+											<t>An OPTIONAL &lt;reseller:pc&gt; element that contains the reseller's postal code.</t>
+											<t>A &lt;reseller:cc&gt; element that contains the reseller's country code.</t>
+										</list>
+									</t>
+								</list>
+							</t>
+							<t>An OPTIONAL &lt;reseller:voice&gt; element that contains the reseller's voice telephone number.</t>
+							<t>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</t>
+							<t>A &lt;reseller:email&gt; element that contains the reseller's email address.</t>
+							<t>A &lt;reseller:url&gt; element that contains the reseller's web home page.</t>
+							<t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
+								<list style="symbols">
+									<t>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</t>
+									<t>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</t>
+								</list>
+							</t>
+							<t>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See Section 2.9 in <xref target="RFC5733"></xref> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</t>
+						</list>
+					</t>
+                    <t>Example &lt;update&gt; command:</t>
+                    <figure>
+                        <artwork>
+                            <![CDATA[
+C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+C:  <command>
+C:    <update>
+C:      <reseller:update
+C:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
+C:        <reseller:id>res1523</reseller:id>
+C:        <reseller:add>
+C:          <reseller:contact type="tech">sh8013</reseller:contact>
+C:        </reseller:add>
+C:        <reseller:chg>
+C:          <reseller:state>private</reseller:state>
+C:          <reseller:postalInfo type="int">
+C:            <reseller:org/>
+C:            <reseller:addr>
+C:              <reseller:street>124 Example Dr.</reseller:street>
+C:              <reseller:street>Suite 200</reseller:street>
+C:              <reseller:city>Dulles</reseller:city>
+C:              <reseller:sp>VA</reseller:sp>
+C:              <reseller:pc>20166-6503</reseller:pc>
+C:              <reseller:cc>US</reseller:cc>
+C:            </reseller:addr>
+C:          </reseller:postalInfo>
+C:          <reseller:voice>+1.7034444444</reseller:voice>
+C:          <reseller:fax/>
+C:          <reseller:disclose flag="1">
+C:            <reseller:voice/>
+C:            <reseller:email/>
+C:          </contact:disclose>
+C:        </reseller:chg>
+C:      </reseller:update>
+C:    </update>
+C:    <clTRID>ABC-12345</clTRID>
+C:  </command>
+C:</epp>
+							]]>
+						</artwork>
+                    </figure>
+                    <t>When an &lt;update&gt; command has been processed successfully, a server MUST respond with an EPP response with no &lt;resData&gt; element.</t>
+					<t>Example &lt;update&gt; response:</t>
+					<figure>
+                        <artwork>
+                            <![CDATA[
+S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+S:  <response>
+S:    <result code="1000">
+S:      <msg>Command completed successfully</msg>
+S:    </result>
+S:    <trID>
+S:      <clTRID>ABC-12345</clTRID>
+S:      <svTRID>54321-XYZ</svTRID>
+S:    </trID>
+S:  </response>
+S:</epp>
+							]]>
+						</artwork>
+                    </figure>
+					<t> An EPP error response MUST be returned if an &lt;update&gt; command cannot be processed for any reason.</t>
+                </section>
+            </section>
+        </section>
+        <section title="Formal Syntax">
+            <t>An EPP object mapping is specified in XML Schema notation. The formal syntax presented here is a complete schema representation of the object mapping suitable for automated validation of EPP XML instances. The BEGIN and END tags are not part of the schema; they are used to note the beginning and ending of the schema for URI registration purposes.</t>
+            <figure>
+                <artwork>
+                    <![CDATA[
+   BEGIN
+   <?xml version="1.0" encoding="UTF-8"?>
+
+   <schema targetNamespace="urn:ietf:params:xml:ns:reseller-1.0"
+          xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0"
+          xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
+          xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+          xmlns:contact="urn:ietf:params:xml:ns:contact-1.0"
+          xmlns="http://www.w3.org/2001/XMLSchema"
+          elementFormDefault="qualified">
+
+   <!--
+   Import common element types.
+   -->
+    <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"/>
+    <import namespace="urn:ietf:params:xml:ns:epp-1.0"/>
+    <import namespace="urn:ietf:params:xml:ns:contact-1.0"/>
+        
+    <annotation>
+      <documentation>
+        Extensible Provisioning Protocol v1.0
+        reseller provisioning schema.
+      </documentation>
+    </annotation>
+    
+   <!--
+   Child elements found in EPP commands.
+   -->
+    <element name="create" type="reseller:createType"/>
+    <element name="delete" type="reseller:sIDType"/>
+    <element name="update" type="reseller:updateType"/>
+    <element name="check" type="reseller:mIDType"/>
+    <element name="info" type="reseller:infoType"/>
+    
+   <!--
+   Utility types.
+   -->
+   <simpleType name="stateType">
+     <restriction base="token">
+       <enumeration value="ok"/>
+       <enumeration value="public"/>
+       <enumeration value="private"/>
+       <enumeration value="readonly"/>
+       <enumeration value="terminated"/>
+     </restriction>
+   </simpleType>
+	 
+   <simpleType name="contactAttrType">
+     <restriction base="token">
+       <enumeration value="admin"/>
+       <enumeration value="billing"/>
+       <enumeration value="tech"/>
+     </restriction>
+   </simpleType>
+   
+   <complexType name="contactType">
+    <simpleContent>
+      <extension base="eppcom:clIDType">
+        <attribute name="type" type="reseller:contactAttrType"/>
+      </extension>
+    </simpleContent>
+   </complexType>
+
+   <complexType name="postalInfoType">
+     <sequence>
+       <element name="name" type="contact:postalLineType"/>
+       <element name="org" type="contact:optPostalLineType"
+        minOccurs="0"/>
+       <element name="addr" type="reseller:addrType"/>
+     </sequence>
+     <attribute name="type" type="contact:postalInfoEnumType"
+      use="required"/>
+   </complexType>
+
+   <complexType name="addrType">
+     <sequence>
+       <element name="street" type="contact:optPostalLineType"
+        minOccurs="0" maxOccurs="3"/>
+       <element name="city" type="contact:postalLineType"/>
+       <element name="sp" type="contact:optPostalLineType"
+        minOccurs="0"/>
+       <element name="pc" type="contact:pcType"
+        minOccurs="0"/>
+       <element name="cc" type="contact:ccType"/>
+     </sequence>
+   </complexType>
+
+   <complexType name="whoisInfoType">
+     <sequence>
+       <element name="name"
+        type="eppcom:labelType" minOccurs="0"/>
+       <element name="url"
+        type="anyURI" minOccurs="0"/>
+     </sequence>
+   </complexType>
+	 
+   <complexType name="discloseType">
+     <sequence>
+       <element name="name" type="contact:intLocType"
+        minOccurs="0" maxOccurs="2"/>
+       <element name="org" type="contact:intLocType"
+        minOccurs="0" maxOccurs="2"/>
+       <element name="addr" type="contact:intLocType"
+        minOccurs="0" maxOccurs="2"/>
+       <element name="voice" minOccurs="0"/>
+       <element name="fax" minOccurs="0"/>
+       <element name="email" minOccurs="0"/>
+       <element name="url" minOccurs="0"/>
+       <element name="whoisInfo" minOccurs="0"/>
+       <element name="contact" minOccurs="0"/>
+     </sequence>
+     <attribute name="flag" type="boolean" use="required"/>
+   </complexType>
+    
+   <!--
+   Child elements of the <create> command.
+   -->
+       <complexType name="createType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"/>
+        <element name="state" type="reseller:stateType"
+         minOccurs="0"/>
+        <!-- for reseller hierarchy, clId is registrar, parenetId is reseller -->
+        <element name="parentId" type="eppcom:clIDType"
+         minOccurs="0"/>  
+        <element name="postalInfo" type="reseller:postalInfoType"
+         maxOccurs="2"/>
+        <element name="voice" type="contact:e164Type"
+         minOccurs="0"/>
+        <element name="fax" type="contact:e164Type"
+         minOccurs="0"/>
+        <element name="email" type="eppcom:minTokenType"/>
+        <element name="url" type="anyURI" 
+         minOccurs="0"/>
+        <element name="whoisInfo" type="reseller:whoisInfoType"
+         minOccurs="0"/> 
+        <element name="contact" type="reseller:contactType"
+         minOccurs="0" maxOccurs="3"/> 
+        <element name="disclose" type="reseller:discloseType"
+         minOccurs="0"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   Child element of commands that require only an identifier.
+   -->
+    <complexType name="sIDType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   Child element of commands that accept multiple identifiers.
+   -->
+    <complexType name="mIDType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"
+         maxOccurs="unbounded"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   Child elements of the <info> commands.
+   -->
+    <complexType name="infoType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"/>        
+      </sequence>
+    </complexType>
+
+   <!--
+   Child elements of the <update> command.
+   -->
+    <complexType name="updateType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"/>
+        <element name="add" type="reseller:addRemType"
+         minOccurs="0"/>
+        <element name="rem" type="reseller:addRemType"
+         minOccurs="0"/>
+        <element name="chg" type="reseller:chgType"
+         minOccurs="0"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   Data elements that can be added or removed.
+   -->
+    <complexType name="addRemType">
+      <sequence>
+        <element name="contact" type="reseller:contactType"
+         minOccurs="0" maxOccurs="3"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   Data elements that can be changed.
+   -->
+    <complexType name="chgType">
+      <sequence>
+        <element name="state" type="reseller:stateType"
+         minOccurs="0"/>
+	<element name="parentId" type="eppcom:clIDType"
+         minOccurs="0"/>
+        <element name="postalInfo" type="reseller:chgPostalInfoType"
+         minOccurs="0" maxOccurs="2"/>
+        <element name="voice" type="contact:e164Type"
+         minOccurs="0"/>
+        <element name="fax" type="contact:e164Type"
+         minOccurs="0"/>
+        <element name="email" type="eppcom:minTokenType"
+         minOccurs="0"/>
+        <element name="url" type="anyURI"
+         minOccurs="0"/>
+        <element name="whoisInfo" type="reseller:whoisInfoType" 
+         minOccurs="0"/>		 
+        <element name="disclose" type="reseller:discloseType"
+         minOccurs="0"/>
+      </sequence>
+    </complexType>
+
+    <complexType name="chgPostalInfoType">
+      <sequence>
+        <element name="name" type="contact:postalLineType"
+         minOccurs="0"/>
+        <element name="org" type="contact:optPostalLineType"
+         minOccurs="0"/>
+        <element name="addr" type="reseller:addrType"
+         minOccurs="0"/>
+      </sequence>
+      <attribute name="type" type="contact:postalInfoEnumType"
+       use="required"/>
+    </complexType>
+
+   <!--
+   Child response elements.
+   -->
+    <element name="chkData" type="reseller:chkDataType"/>
+    <element name="creData" type="reseller:creDataType"/>
+    <element name="infData" type="reseller:infDataType"/>
+
+   <!--
+   <check> response elements.
+   -->
+    <complexType name="chkDataType">
+      <sequence>
+        <element name="cd" type="reseller:checkType"
+         maxOccurs="unbounded"/>
+      </sequence>
+    </complexType>
+
+    <complexType name="checkType">
+      <sequence>
+        <element name="id" type="reseller:checkIDType"/>
+        <element name="reason" type="eppcom:reasonType"
+         minOccurs="0"/>
+      </sequence>
+    </complexType>
+
+    <complexType name="checkIDType">
+      <simpleContent>
+        <extension base="eppcom:clIDType">
+          <attribute name="avail" type="boolean"
+           use="required"/>
+        </extension>
+      </simpleContent>
+    </complexType>
+
+   <!--
+   <create> response elements.
+   -->
+    <complexType name="creDataType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"/>
+        <element name="crDate" type="dateTime"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   <info> response elements.
+   -->
+    <complexType name="infDataType">
+      <sequence>
+        <element name="id" type="eppcom:clIDType"/>
+        <element name="roid" type="eppcom:roidType"/>
+		<element name="state" type="reseller:stateType"/>
+        <element name="parentId" type="eppcom:clIDType"
+         minOccurs="0"/>
+        <element name="postalInfo" type="reseller:postalInfoType"
+         maxOccurs="2"/>
+        <element name="voice" type="contact:e164Type"
+         minOccurs="0"/>
+        <element name="fax" type="contact:e164Type"
+         minOccurs="0"/>
+        <element name="email" type="eppcom:minTokenType"/>
+        <element name="url" type="anyURI"
+         minOccurs="0"/>
+        <element name="whoisInfo" type="reseller:whoisInfoType" 
+		 minOccurs="0"/>	
+        <element name="contact" type="reseller:contactType"
+         minOccurs="0" maxOccurs="3"/> 	 	 
+        <element name="clID" type="eppcom:clIDType"/>
+        <element name="crID" type="eppcom:clIDType"/>
+        <element name="crDate" type="dateTime"/>
+        <element name="upID" type="eppcom:clIDType"
+         minOccurs="0"/>
+        <element name="upDate" type="dateTime"
+         minOccurs="0"/>
+        <element name="disclose" type="reseller:discloseType"
+         minOccurs="0"/>
+      </sequence>
+    </complexType>
+
+   <!--
+   End of schema.
+   -->
+   END
+   </schema>
+				]]>
+				</artwork>
+            </figure>
+        </section>
+        <section title="Internationalization Considerations" anchor="Internationalization">
+            <t>EPP is represented in XML, which provides native support for encoding information using the Unicode character set and its more compact representations including UTF-8. Conformant XML processors recognize both UTF-8 and UTF-16. Though XML includes provisions to identify and use other character encodings through use of an "encoding" attribute in an &lt;?xml?&gt; declaration, use of UTF-8 is RECOMMENDED.</t>
+            <t>As an extension of the EPP reseller object mapping, the elements and element content described in this document MUST inherit the internationalization conventions used to represent higher-layer domain and core protocol structures present in an XML instance that includes this extension.</t>
+        </section>
+        <section title="IANA Considerations" anchor="Iana">
+            <section title="XML Namespace">
+                <t>This document uses URNs to describe XML namespaces and XML schemas conforming to a registry mechanism described in 
+                <xref target="RFC3688"></xref>. IANA is requested to assignment the following URI.</t>
+                <t>Registration request for the reseller namespace:</t>
+                <t>
+                    <list style="symbols">
+                        <t>URI: urn:ietf:params:xml:ns:reseller-1.0</t>
+                        <t>Registrant Contact: See the "Author's Address" section of this document.</t>
+                        <t>XML: See the "Formal Syntax" section of this document.</t>
+                    </list>
+                </t>
+            </section>
+            <section title="EPP Extension Registry">
+                <t>The EPP extension described in this document should be registered by the IANA in the EPP Extension Registry described in 
+                <xref target="RFC7451"></xref>. The details of the registration are as follows:</t>
+                <t>Name of Extension: Domain Reseller Object Extension</t>
+                <t>Document status: Standards Track</t>
+                <t>Reference: (insert reference to RFC version of this document)</t>
+                <t>Registrant Name and Email Address: See the "Author's Address" section of this document.</t>
+                <t>TLDs: any</t>
+                <t>IPR Disclosure: none</t>
+                <t>Status: active</t>
+                <t>Notes: none</t>
+            </section>
+        </section>
+        <section title="Security Considerations" anchor="security">
+            <t>Authorization information described in <xref target="RFC5733"></xref> is not supported in this document. If the querying client is not the sponsoring registrar of the reseller, not all the object information is accessible. The disclose element defined in <xref target="RFC5733"></xref> is used to allow or restrict disclosure of object elements to third parties. Other mechanism, such as defining a registry customized authorization information list according to their local policies and regulations, is also possible.</t>
+			<!-- <t>The object mapping extension described in this document does not provide any other security services or introduce any additional considerations beyond those described by <xref target="RFC5733"></xref> or those caused by the protocol layers used by EPP. The security considerations described in these other specifications apply to this specification as well.</t> -->
+        </section>
+    </middle>
+    <back>
+        <references title="Normative References">
+		&RFC2119;
+		&RFC3688; 
+		&RFC5730; 
+		&RFC5733; 
+		&RFC7451; 
+        <reference anchor="W3C.REC-xml-20040204" target="http://www.w3.org/TR/2004/REC-xml-20040204">
+            <front>
+                <title>"Extensible Markup Language (XML) 1.0 (Third Edition)", World Wide Web Consortium FirstEdition REC-xml-20040204</title>
+                <author initials="T" surname="Bray">
+                    <organization></organization>
+                </author>
+                <author initials="J" surname="Paoli">
+                    <organization></organization>
+                </author>
+                <author initials="C" surname="Sperberg-McQueen">
+                    <organization></organization>
+                </author>
+                <author initials="E" surname="Maler">
+                    <organization></organization>
+                </author>
+                <author initials="F" surname="Yergeau">
+                    <organization></organization>
+                </author>
+                <date month="February" year="2004" />
+            </front>
+        </reference>
+        <reference anchor="W3C.REC-xmlschema-1-20041028" target="http://www.w3.org/TR/2004/REC-xmlschema-1-20041028">
+            <front>
+                <title>"XML Schema Part 1: Structures Second Edition", World Wide Web Consortium Recommendation REC-xmlschema-1-20041028</title>
+                <author initials="H" surname="Thompson">
+                    <organization></organization>
+                </author>
+                <author initials="D" surname="Beech">
+                    <organization></organization>
+                </author>
+                <author initials="M" surname="Maloney">
+                    <organization></organization>
+                </author>
+                <author initials="N" surname="Mendelsohn">
+                    <organization></organization>
+                </author>
+                <date month="October" year="2004" />
+            </front>
+        </reference>
+        <reference anchor="W3C.REC-xmlschema-2-20041028" target="http://www.w3.org/TR/2004/REC-xmlschema-2-20041028">
+            <front>
+                <title>"XML Schema Part 2: Datatypes Second Edition", World Wide Web Consortium Recommendation REC-xmlschema-2-20041028</title>
+                <author initials="P" surname="Biron">
+                    <organization></organization>
+                </author>
+                <author initials="A" surname="Malhotra">
+                    <organization></organization>
+                </author>
+                <date month="October" year="2004" />
+            </front>
+        </reference></references>
+    </back>
+</rfc>
