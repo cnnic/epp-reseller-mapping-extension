@@ -89,7 +89,7 @@
                 <email>jgould@verisign.com</email>
             </address>
         </author>
-        <date day="1" month="May" year="2015" />
+        <date day="4" month="May" year="2015" />
         <area>Internet</area>
         <workgroup>Internet Engineering Task Force</workgroup>
         <keyword>epp registry reseller object mapping extension</keyword>
@@ -124,17 +124,17 @@
          </section>
 			<section title="Reseller State" anchor="reseller-state">
 			<!-- JG - I'm not sure about the concept of shared resellers and how that would be represented and validated.  We may want to consider going with just "ok", "readonly", and "terminated".  -->
-                <t>A reseller object MUST always have at least one associated state value. Valid values include "ok", "public", "private", "readonly" and "terminated".</t>
+                <t>A reseller object MUST always have at least one associated state value. Valid values include "ok", "readonly" and "terminated".</t>
 				<t>State Value Descriptions:</t>
 				<t>
 					<list style="symbols">
 						<t>ok: the normal status value for the reseller object.</t>
-						<t>public: the reseller object can be shared by different registrars.</t>
-						<t>private: the reseller object belongs to designated registrar.</t>
+						<!-- <t>public: the reseller object can be shared by different registrars.</t> -->
+						<!-- <t>private: the reseller object belongs to designated registrar.</t> -->
 				<!-- Would readonly mean that transform commands submitted with the reseller identifier in the reseller extension would not be allowed? -->
-						<t>readonly: the reseller object cannot be updated.</t>
+						<t>readonly: transform commands submitted with the reseller identifier in the reseller extension would not be allowed.</t>
 				<!-- Would terminated indicate that query and tranform commands submitted with the reseller identifier in the reseller extension would not be allowed? -->
-						<t>terminated: deactivated object that cannot be used any more.</t>
+						<t>terminated: query and tranform commands submitted with the reseller identifier in the reseller extension would not be allowed.</t>
 					</list>
 				</t>
             </section>
@@ -146,23 +146,23 @@
 				<t>The URL represents the reseller web home page, as defined with the &lt;reseller:url&gt; element.</t>
 			</section>
          <!-- JG - We may want to change this to "RDDS Information" and add a type attribute that supports "whois", "rdap", "webWhois", "searchableWhois"; although do reseller typically support RDDS? -->
-			<section title="WHOIS Information" anchor="reseller-whois">
+			<!-- <section title="WHOIS Information" anchor="reseller-whois">
 				<t>The WHOIS information contains the name and URL of a reseller's WHOIS server.</t>
-			</section>
+			</section> -->
 			<section title="Disclosure of Data Elements and Attributes" anchor="reseller-disclosure">
 				<t>This document supports the same disclosure features described in Section 2.9 of <xref target="RFC5733"> with the use of the &lt;reseller:disclose&gt; element.</xref>.</t>
 				<t>The &lt;reseller:disclose&gt; element MUST contain at least one of the following child elements:</t>
 				<t>&lt;reseller:name type="int"/&gt;</t>
 				<t>&lt;reseller:name type="loc"/&gt;</t>
-				<t>&lt;reseller:org type="int"/&gt;</t>
-				<t>&lt;reseller:org type="loc"/&gt;</t>
+				<!-- <t>&lt;reseller:org type="int"/&gt;</t> -->
+				<!-- <t>&lt;reseller:org type="loc"/&gt;</t> -->
 				<t>&lt;reseller:addr type="int"/&gt;</t>
 				<t>&lt;reseller:addr type="loc"/&gt;</t>
 				<t>&lt;reseller:voice/&gt;</t>
 				<t>&lt;reseller:fax/&gt;</t>
 				<t>&lt;reseller:email/&gt;</t>
 				<t>&lt;reseller:url/&gt;</t>
-				<t>&lt;reseller:whoisInfo/&gt;</t>
+				<!-- <t>&lt;reseller:whoisInfo/&gt;</t> -->
 				<t>&lt;reseller:contact/&gt;</t>
 			</section>
         </section>
@@ -293,19 +293,19 @@ C:</epp>]]>
 							<t>A &lt;reseller:email&gt; element that contains the reseller's email address.</t>
 							<t>A &lt;reseller:url&gt; element that contains the reseller's web home page.</t>
 							<!-- JG - We may want to think about this a little bit, since the question is whether a reseller would support RDDS in anyway and if so why types of RDDS can or should be supported by a reseller. I recommend removing it at this point. -->
-							<t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
+							<!-- <t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
 								<list style="symbols">
 									<t>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</t>
 									<t>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</t>
 								</list>
-							</t>
+							</t> -->
 							<!-- JG - Do we want to make this Zero or more instead of one or more? -->
-							<t>One or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the contact objects to be associated with the reseller object.  
+							<t>Zero or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the contact objects to be associated with the reseller object.  
 							Contact object identifiers MUST be known to the server before the contact object can be associated with the reseller object.</t>
 							<t>A &lt;reseller:clID&gt; element that contains the identifier of the sponsoring client, who is the domain name registrar.</t>
 							<t>A &lt;reseller:crID&gt; element that contains the identifier of the client that created the reseller object.</t>
 							<t>A &lt;reseller:crDate&gt; element that contains the date and time of reseller-object creation.</t>
-							<t> A &lt;reseller:upID&gt; element that contains the identifier of the client that last updated the reseller object. This element MUST NOT be present if the contact has never been modified.</t>
+							<t> A &lt;reseller:upID&gt; element that contains the identifier of the client that last updated the reseller object. This element MUST NOT be present if the reseller has never been modified.</t>
 							<t>A &lt;reseller:upDate&gt; element that contains the date and time of the most recent reseller-object modification. This element MUST NOT be present if the reseller object has never been modified.</t>
 							<t>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See <xref target="reseller-disclosure"/> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</t>
                         </list>
@@ -342,10 +342,6 @@ S:        <reseller:voice x="1234">+1.7035555555</reseller:voice>
 S:        <reseller:fax>+1.7035555556</reseller:fax>
 S:        <reseller:email>contact@reseller.example</reseller:email>
 S:        <reseller:url>http://reseller.example</reseller:url>
-S:        <reseller:whoisInfo>
-S:          <reseller:name>whois.nic.example</reseller:name>
-S:          <reseller:url>http://whois.nic.example</reseller:url>
-S:        </reseller:whoisInfo>
 S:        <reseller:contact type="admin">sh8013</reseller:contact>
 S:        <reseller:contact type="billing">sh8013</reseller:contact>
 S:        <reseller:clID>ClientY</reseller:clID>
@@ -429,7 +425,7 @@ S:</epp>]]>
                     <t> The EPP &lt;create&gt; command provides a transform operation that allows a client to create a reseller object. In addition to the standard EPP command elements, the &lt;create&gt; command MUST contain a &lt;reseller:create&gt; element that identifies the reseller namespace. The &lt;reseller:create&gt; element contains the following child elements:</t>
 					<t>
 						<list style="symbols">
-							<t>A &lt;reseller:id&gt; element that contains the desired server-unique identifier for the contact to be created, as defined in <xref target="reseller-identifier"/>.</t>
+							<t>A &lt;reseller:id&gt; element that contains the desired server-unique identifier for the reseller to be created, as defined in <xref target="reseller-identifier"/>.</t>
 							<t>A &lt;reseller:state&gt; element that contains the operational status of the reseller, as defined in <xref target="reseller-state"/>.</t>
 							<t>An OPTIONAL &lt;reseller:parentId&gt; element that contains the identifier of the parent object, as defined in <xref target="parent-identifier"/>.</t>
 							<t>One or two &lt;reseller:postalInfo&gt; elements that contain postal- address information. Two elements are provided so that address information can be provided in both internationalized and localized forms; a "type" attribute is used to identify the two forms. If an internationalized form (type="int") is provided, element content MUST be represented in a subset of UTF-8 that can be represented in the 7-bit US-ASCII character set. If a localized form (type="loc") is provided, element content MAY be represented in unrestricted UTF-8. The &lt;reseller:postalInfo&gt; element contains the following child elements:
@@ -452,14 +448,14 @@ S:</epp>]]>
 							<t>A &lt;reseller:email&gt; element that contains the reseller's email address.</t>
 							<t>A &lt;reseller:url&gt; element that contains the reseller's web home page.</t>
 							<!-- JG - We may want to think about this a little bit, since the question is whether a reseller would support RDDS in anyway and if so why types of RDDS can or should be supported by a reseller. I recommend removing it at this point. -->
-							<t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
+							<!-- <t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
 								<list style="symbols">
 									<t>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</t>
 									<t>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</t>
 								</list>
-							</t>
+							</t> -->
 							<!-- JG - Do we want to make this zero or more instead of one or more? -->
-							<t>One or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with the reseller object.</t>
+							<t>Zero or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with the reseller object.</t>
 							<t>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See <xref target="reseller-disclosure"/> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</t>
 						</list>
 					</t>
@@ -491,10 +487,6 @@ C:        <reseller:voice x="1234">+1.7035555555</reseller:voice>
 C:        <reseller:fax>+1.7035555556</reseller:fax>
 C:        <reseller:email>contact@reseller.example</reseller:email>
 C:        <reseller:url>http://reseller.example</reseller:url>
-C:        <reseller:whoisInfo>
-C:          <reseller:name>whois.nic.example</reseller:name>
-C:          <reseller:url>http://whois.nic.example</reseller:url>
-C:        </reseller:whoisInfo>
 C:        <reseller:contact type="admin">sh8013</reseller:contact>
 C:        <reseller:contact type="billing">sh8013</reseller:contact>
 C:        <reseller:disclose flag="0">
@@ -608,7 +600,7 @@ S:</epp>]]>
                     <t>At least one &lt;reseller:add&gt;, &lt;reseller:rem&gt; or &lt;reseller:rem&gt; element MUST be provided if the command is not being extended. All of these elements MAY be omitted if an &lt;update&gt; extension is present. The &lt;reseller:add&gt; and &lt;reseller:rem&gt; elements contain the following child element:</t>
                     <t>
                         <list style="symbols">
-                            <t>One or more &lt;reseller:contact&gt; elements that contain the identifiers for contact objects to be associated with or removed from the reseller object.  Contact object identifiers MUST be known to the server 
+                            <t>Zero or more &lt;reseller:contact&gt; elements that contain the identifiers for contact objects to be associated with or removed from the reseller object. Contact object identifiers MUST be known to the server 
                             before the contact object can be associated with the reseller object.</t>
                         </list>
                     </t>
@@ -635,12 +627,12 @@ S:</epp>]]>
 							<t>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</t>
 							<t>A &lt;reseller:email&gt; element that contains the reseller's email address.</t>
 							<t>A &lt;reseller:url&gt; element that contains the reseller's web home page.</t>
-							<t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
+							<!-- <t>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements:
 								<list style="symbols">
 									<t>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</t>
 									<t>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</t>
 								</list>
-							</t>
+							</t> -->
 							<t>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See Section 2.9 in <xref target="RFC5733"></xref> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</t>
 						</list>
 					</t>
@@ -753,8 +745,6 @@ S:</epp>]]>
    <simpleType name="stateType">
      <restriction base="token">
        <enumeration value="ok"/>
-       <enumeration value="public"/>
-       <enumeration value="private"/>
        <enumeration value="readonly"/>
        <enumeration value="terminated"/>
      </restriction>
@@ -797,15 +787,6 @@ S:</epp>]]>
        <element name="cc" type="contact:ccType"/>
      </sequence>
    </complexType>
-
-   <complexType name="whoisInfoType">
-     <sequence>
-       <element name="name"
-        type="eppcom:labelType" minOccurs="0"/>
-       <element name="url"
-        type="anyURI" minOccurs="0"/>
-     </sequence>
-   </complexType>
 	 
    <complexType name="discloseType">
      <sequence>
@@ -844,8 +825,6 @@ S:</epp>]]>
         <element name="email" type="eppcom:minTokenType"/>
         <element name="url" type="anyURI" 
          minOccurs="0"/>
-        <element name="whoisInfo" type="reseller:whoisInfoType"
-         minOccurs="0"/> 
         <element name="contact" type="reseller:contactType"
          minOccurs="0" maxOccurs="3"/> 
         <element name="disclose" type="reseller:discloseType"
@@ -924,8 +903,6 @@ S:</epp>]]>
         <element name="email" type="eppcom:minTokenType"
          minOccurs="0"/>
         <element name="url" type="anyURI"
-         minOccurs="0"/>
-        <element name="whoisInfo" type="reseller:whoisInfoType" 
          minOccurs="0"/>		 
         <element name="disclose" type="reseller:discloseType"
          minOccurs="0"/>
@@ -1007,9 +984,7 @@ S:</epp>]]>
          minOccurs="0"/>
         <element name="email" type="eppcom:minTokenType"/>
         <element name="url" type="anyURI"
-         minOccurs="0"/>
-        <element name="whoisInfo" type="reseller:whoisInfoType" 
-		 minOccurs="0"/>	
+         minOccurs="0"/>	
         <element name="contact" type="reseller:contactType"
          minOccurs="0" maxOccurs="3"/> 	 	 
         <element name="clID" type="eppcom:clIDType"/>

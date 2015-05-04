@@ -382,8 +382,7 @@
 <link href="#rfc.section.3.3" rel="Chapter" title="3.3 Reseller State"/>
 <link href="#rfc.section.3.4" rel="Chapter" title="3.4 Parent Identifier"/>
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 URL"/>
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 WHOIS Information"/>
-<link href="#rfc.section.3.7" rel="Chapter" title="3.7 Disclosure of Data Elements and Attributes"/>
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 Disclosure of Data Elements and Attributes"/>
 <link href="#rfc.section.4" rel="Chapter" title="4 EPP Command Mapping"/>
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 EPP Query Commands"/>
 <link href="#rfc.section.4.1.1" rel="Chapter" title="4.1.1 EPP &lt;check&gt; Command"/>
@@ -405,12 +404,12 @@
 <link href="#rfc.authors" rel="Chapter"/>
 
 
-  <meta name="generator" content="xml2rfc version 2.4.8 - http://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.4.12.dev0 - http://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Zhou, L., Kong, N., Qi, C., Lee, X., and J. Gould" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-zhou-eppext-reseller-mapping-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2015-5-1" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-5-4" />
   <meta name="dct.abstract" content="This document describes an Extensible Provisioning Protocol (EPP) mapping for provisioning and management of registry reseller stored in a shared central repository. Specified in Extensible Markup Language (XML), this extended mapping is applied to provide additional features required for the provisioning of registry resellers." />
   <meta name="description" content="This document describes an Extensible Provisioning Protocol (EPP) mapping for provisioning and management of registry reseller stored in a shared central repository. Specified in Extensible Markup Language (XML), this extended mapping is applied to provide additional features required for the provisioning of registry resellers." />
 
@@ -434,7 +433,7 @@
   <td class="right">C. Qi</td>
 </tr>
 <tr>
-  <td class="left">Expires: November 2, 2015</td>
+  <td class="left">Expires: November 5, 2015</td>
   <td class="right">X. Lee</td>
 </tr>
 <tr>
@@ -451,7 +450,7 @@
 </tr>
 <tr>
   <td class="left"></td>
-  <td class="right">May 1, 2015</td>
+  <td class="right">May 4, 2015</td>
 </tr>
 
     	
@@ -471,7 +470,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 2, 2015.</p>
+<p>This Internet-Draft will expire on November 5, 2015.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -487,30 +486,29 @@
   	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
 <li>2.   <a href="#rfc.section.2">Conventions Used in This Document</a></li>
 <li>3.   <a href="#rfc.section.3">Object Attributes</a></li>
-<li>3.1.   <a href="#rfc.section.3.1">Reseller Identifier</a></li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Reseller Identifier</a></li>
 <li>3.2.   <a href="#rfc.section.3.2">Contact and Client Identifiers</a></li>
 <li>3.3.   <a href="#rfc.section.3.3">Reseller State</a></li>
 <li>3.4.   <a href="#rfc.section.3.4">Parent Identifier</a></li>
 <li>3.5.   <a href="#rfc.section.3.5">URL</a></li>
-<li>3.6.   <a href="#rfc.section.3.6">WHOIS Information</a></li>
-<li>3.7.   <a href="#rfc.section.3.7">Disclosure of Data Elements and Attributes</a></li>
-<li>4.   <a href="#rfc.section.4">EPP Command Mapping</a></li>
-<li>4.1.   <a href="#rfc.section.4.1">EPP Query Commands</a></li>
-<li>4.1.1.   <a href="#rfc.section.4.1.1">EPP &lt;check&gt; Command</a></li>
+<li>3.6.   <a href="#rfc.section.3.6">Disclosure of Data Elements and Attributes</a></li>
+</ul><li>4.   <a href="#rfc.section.4">EPP Command Mapping</a></li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">EPP Query Commands</a></li>
+<ul><li>4.1.1.   <a href="#rfc.section.4.1.1">EPP &lt;check&gt; Command</a></li>
 <li>4.1.2.   <a href="#rfc.section.4.1.2">EPP &lt;info&gt; Command</a></li>
 <li>4.1.3.   <a href="#rfc.section.4.1.3">EPP &lt;transfer&gt; Command</a></li>
-<li>4.2.   <a href="#rfc.section.4.2">EPP Transform Commands</a></li>
-<li>4.2.1.   <a href="#rfc.section.4.2.1">EPP &lt;create&gt; Command</a></li>
+</ul><li>4.2.   <a href="#rfc.section.4.2">EPP Transform Commands</a></li>
+<ul><li>4.2.1.   <a href="#rfc.section.4.2.1">EPP &lt;create&gt; Command</a></li>
 <li>4.2.2.   <a href="#rfc.section.4.2.2">EPP &lt;delete&gt; Command</a></li>
 <li>4.2.3.   <a href="#rfc.section.4.2.3">EPP &lt;renew&gt; Command</a></li>
 <li>4.2.4.   <a href="#rfc.section.4.2.4">EPP &lt;transfer&gt; Command</a></li>
 <li>4.2.5.   <a href="#rfc.section.4.2.5">EPP &lt;update&gt; Command</a></li>
-<li>5.   <a href="#rfc.section.5">Formal Syntax</a></li>
+</ul></ul><li>5.   <a href="#rfc.section.5">Formal Syntax</a></li>
 <li>6.   <a href="#rfc.section.6">Internationalization Considerations</a></li>
 <li>7.   <a href="#rfc.section.7">IANA Considerations</a></li>
-<li>7.1.   <a href="#rfc.section.7.1">XML Namespace</a></li>
+<ul><li>7.1.   <a href="#rfc.section.7.1">XML Namespace</a></li>
 <li>7.2.   <a href="#rfc.section.7.2">EPP Extension Registry</a></li>
-<li>8.   <a href="#rfc.section.8">Security Considerations</a></li>
+</ul><li>8.   <a href="#rfc.section.8">Security Considerations</a></li>
 <li>9.   <a href="#rfc.references">Normative References</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
@@ -533,16 +531,14 @@
 <h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> Contact and Client Identifiers</h1>
 <p id="rfc.section.3.2.p.1">All EPP contacts are identified by a server-unique identifier.  Contact identifiers are character strings with a specific minimum length, a specified maximum length, and a specified format.  Contact identifiers use the "clIDType" client identifier syntax described in <a href="#RFC5730">[RFC5730]</a>.</p>
 <h1 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3.</a> <a href="#reseller-state" id="reseller-state">Reseller State</a></h1>
-<p id="rfc.section.3.3.p.1">A reseller object MUST always have at least one associated state value. Valid values include "ok", "public", "private", "readonly" and "terminated".</p>
+<p id="rfc.section.3.3.p.1">A reseller object MUST always have at least one associated state value. Valid values include "ok", "readonly" and "terminated".</p>
 <p id="rfc.section.3.3.p.2">State Value Descriptions:</p>
 <p/>
 
 <ul>
   <li>ok: the normal status value for the reseller object.</li>
-  <li>public: the reseller object can be shared by different registrars.</li>
-  <li>private: the reseller object belongs to designated registrar.</li>
-  <li>readonly: the reseller object cannot be updated.</li>
-  <li>terminated: deactivated object that cannot be used any more.</li>
+  <li>readonly: transform commands submitted with the reseller identifier in the reseller extension would not be allowed.</li>
+  <li>terminated: query and tranform commands submitted with the reseller identifier in the reseller extension would not be allowed.</li>
 </ul>
 
 <p> </p>
@@ -550,23 +546,18 @@
 <p id="rfc.section.3.4.p.1">There can be more than one layer of resellers. The parent identifier, as defined with the &lt;reseller:parentId&gt; element, represents the parent reseller identifier in a child reseller. The parent identifier is not defined for the top level reseller, namely the registrar of the registry. An N-tier reseller has a parent reseller and at least one child reseller.  A reseller customer has a parent reseller and no child resellers.</p>
 <h1 id="rfc.section.3.5"><a href="#rfc.section.3.5">3.5.</a> <a href="#reseller-url" id="reseller-url">URL</a></h1>
 <p id="rfc.section.3.5.p.1">The URL represents the reseller web home page, as defined with the &lt;reseller:url&gt; element.</p>
-<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#reseller-whois" id="reseller-whois">WHOIS Information</a></h1>
-<p id="rfc.section.3.6.p.1">The WHOIS information contains the name and URL of a reseller's WHOIS server.</p>
-<h1 id="rfc.section.3.7"><a href="#rfc.section.3.7">3.7.</a> <a href="#reseller-disclosure" id="reseller-disclosure">Disclosure of Data Elements and Attributes</a></h1>
-<p id="rfc.section.3.7.p.1">This document supports the same disclosure features described in Section 2.9 of <a href="#RFC5733">with the use of the &lt;reseller:disclose&gt; element.</a> <cite title="NONE">[RFC5733]</cite>.</p>
-<p id="rfc.section.3.7.p.2">The &lt;reseller:disclose&gt; element MUST contain at least one of the following child elements:</p>
-<p id="rfc.section.3.7.p.3">&lt;reseller:name type="int"/&gt;</p>
-<p id="rfc.section.3.7.p.4">&lt;reseller:name type="loc"/&gt;</p>
-<p id="rfc.section.3.7.p.5">&lt;reseller:org type="int"/&gt;</p>
-<p id="rfc.section.3.7.p.6">&lt;reseller:org type="loc"/&gt;</p>
-<p id="rfc.section.3.7.p.7">&lt;reseller:addr type="int"/&gt;</p>
-<p id="rfc.section.3.7.p.8">&lt;reseller:addr type="loc"/&gt;</p>
-<p id="rfc.section.3.7.p.9">&lt;reseller:voice/&gt;</p>
-<p id="rfc.section.3.7.p.10">&lt;reseller:fax/&gt;</p>
-<p id="rfc.section.3.7.p.11">&lt;reseller:email/&gt;</p>
-<p id="rfc.section.3.7.p.12">&lt;reseller:url/&gt;</p>
-<p id="rfc.section.3.7.p.13">&lt;reseller:whoisInfo/&gt;</p>
-<p id="rfc.section.3.7.p.14">&lt;reseller:contact/&gt;</p>
+<h1 id="rfc.section.3.6"><a href="#rfc.section.3.6">3.6.</a> <a href="#reseller-disclosure" id="reseller-disclosure">Disclosure of Data Elements and Attributes</a></h1>
+<p id="rfc.section.3.6.p.1">This document supports the same disclosure features described in Section 2.9 of <a href="#RFC5733">with the use of the &lt;reseller:disclose&gt; element.</a> <cite title="NONE">[RFC5733]</cite>.</p>
+<p id="rfc.section.3.6.p.2">The &lt;reseller:disclose&gt; element MUST contain at least one of the following child elements:</p>
+<p id="rfc.section.3.6.p.3">&lt;reseller:name type="int"/&gt;</p>
+<p id="rfc.section.3.6.p.4">&lt;reseller:name type="loc"/&gt;</p>
+<p id="rfc.section.3.6.p.5">&lt;reseller:addr type="int"/&gt;</p>
+<p id="rfc.section.3.6.p.6">&lt;reseller:addr type="loc"/&gt;</p>
+<p id="rfc.section.3.6.p.7">&lt;reseller:voice/&gt;</p>
+<p id="rfc.section.3.6.p.8">&lt;reseller:fax/&gt;</p>
+<p id="rfc.section.3.6.p.9">&lt;reseller:email/&gt;</p>
+<p id="rfc.section.3.6.p.10">&lt;reseller:url/&gt;</p>
+<p id="rfc.section.3.6.p.11">&lt;reseller:contact/&gt;</p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> EPP Command Mapping</h1>
 <p id="rfc.section.4.p.1">A detailed description of the EPP syntax and semantics can be found in the EPP core protocol specification <a href="#RFC5730">[RFC5730]</a>. The command mappings described here are specifically for use in provisioning and managing reseller information via EPP.</p>
 <h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> EPP Query Commands</h1>
@@ -678,14 +669,13 @@ C:&lt;/epp&gt;
   <li>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</li>
   <li>A &lt;reseller:email&gt; element that contains the reseller's email address.</li>
   <li>A &lt;reseller:url&gt; element that contains the reseller's web home page.</li>
-  <li>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements: <ul><li>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</li><li>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</li></ul><p> </p></li>
-  <li>One or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the contact objects to be associated with the reseller object.  Contact object identifiers MUST be known to the server before the contact object can be associated with the reseller object.</li>
+  <li>Zero or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the contact objects to be associated with the reseller object.  Contact object identifiers MUST be known to the server before the contact object can be associated with the reseller object.</li>
   <li>A &lt;reseller:clID&gt; element that contains the identifier of the sponsoring client, who is the domain name registrar.</li>
   <li>A &lt;reseller:crID&gt; element that contains the identifier of the client that created the reseller object.</li>
   <li>A &lt;reseller:crDate&gt; element that contains the date and time of reseller-object creation.</li>
-  <li>A &lt;reseller:upID&gt; element that contains the identifier of the client that last updated the reseller object. This element MUST NOT be present if the contact has never been modified.</li>
+  <li>A &lt;reseller:upID&gt; element that contains the identifier of the client that last updated the reseller object. This element MUST NOT be present if the reseller has never been modified.</li>
   <li>A &lt;reseller:upDate&gt; element that contains the date and time of the most recent reseller-object modification. This element MUST NOT be present if the reseller object has never been modified.</li>
-  <li>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See <a href="#reseller-disclosure">Section 3.7</a> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</li>
+  <li>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See <a href="#reseller-disclosure">Section 3.6</a> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</li>
 </ul>
 
 <p> </p>
@@ -720,10 +710,6 @@ S:        &lt;reseller:voice x="1234"&gt;+1.7035555555&lt;/reseller:voice&gt;
 S:        &lt;reseller:fax&gt;+1.7035555556&lt;/reseller:fax&gt;
 S:        &lt;reseller:email&gt;contact@reseller.example&lt;/reseller:email&gt;
 S:        &lt;reseller:url&gt;http://reseller.example&lt;/reseller:url&gt;
-S:        &lt;reseller:whoisInfo&gt;
-S:          &lt;reseller:name&gt;whois.nic.example&lt;/reseller:name&gt;
-S:          &lt;reseller:url&gt;http://whois.nic.example&lt;/reseller:url&gt;
-S:        &lt;/reseller:whoisInfo&gt;
 S:        &lt;reseller:contact type="admin"&gt;sh8013&lt;/reseller:contact&gt;
 S:        &lt;reseller:contact type="billing"&gt;sh8013&lt;/reseller:contact&gt;
 S:        &lt;reseller:clID&gt;ClientY&lt;/reseller:clID&gt;
@@ -802,7 +788,7 @@ S:&lt;/epp&gt;
 <p/>
 
 <ul>
-  <li>A &lt;reseller:id&gt; element that contains the desired server-unique identifier for the contact to be created, as defined in <a href="#reseller-identifier">Section 3.1</a>.</li>
+  <li>A &lt;reseller:id&gt; element that contains the desired server-unique identifier for the reseller to be created, as defined in <a href="#reseller-identifier">Section 3.1</a>.</li>
   <li>A &lt;reseller:state&gt; element that contains the operational status of the reseller, as defined in <a href="#reseller-state">Section 3.3</a>.</li>
   <li>An OPTIONAL &lt;reseller:parentId&gt; element that contains the identifier of the parent object, as defined in <a href="#parent-identifier">Section 3.4</a>.</li>
   <li>One or two &lt;reseller:postalInfo&gt; elements that contain postal- address information. Two elements are provided so that address information can be provided in both internationalized and localized forms; a "type" attribute is used to identify the two forms. If an internationalized form (type="int") is provided, element content MUST be represented in a subset of UTF-8 that can be represented in the 7-bit US-ASCII character set. If a localized form (type="loc") is provided, element content MAY be represented in unrestricted UTF-8. The &lt;reseller:postalInfo&gt; element contains the following child elements: <ul><li>A &lt;reseller:name&gt; element that contains the name of the reseller, which SHOULD be the name of the organization..</li><li>A &lt;reseller:addr&gt; element that contains address information associated with the reseller. A &lt;reseller:addr&gt; element contains the following child elements: <ul><li>One, two, or three OPTIONAL &lt;reseller:street&gt; elements that contain the reseller's street address.</li><li>A &lt;reseller:city&gt; element that contains the reseller's city.</li><li>An OPTIONAL &lt;reseller:sp&gt; element that contains the reseller's state or province.</li><li>An OPTIONAL &lt;reseller:pc&gt; element that contains the reseller's postal code.</li><li>A &lt;reseller:cc&gt; element that contains the reseller's country code.</li></ul><p> </p></li></ul><p> </p></li>
@@ -810,9 +796,8 @@ S:&lt;/epp&gt;
   <li>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</li>
   <li>A &lt;reseller:email&gt; element that contains the reseller's email address.</li>
   <li>A &lt;reseller:url&gt; element that contains the reseller's web home page.</li>
-  <li>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements: <ul><li>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</li><li>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</li></ul><p> </p></li>
-  <li>One or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with the reseller object.</li>
-  <li>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See <a href="#reseller-disclosure">Section 3.7</a> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</li>
+  <li>Zero or more OPTIONAL &lt;reseller:contact&gt; elements that contain identifiers for the human or organizational social information objects associated with the reseller object.</li>
+  <li>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See <a href="#reseller-disclosure">Section 3.6</a> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</li>
 </ul>
 
 <p> </p>
@@ -843,10 +828,6 @@ C:        &lt;reseller:voice x="1234"&gt;+1.7035555555&lt;/reseller:voice&gt;
 C:        &lt;reseller:fax&gt;+1.7035555556&lt;/reseller:fax&gt;
 C:        &lt;reseller:email&gt;contact@reseller.example&lt;/reseller:email&gt;
 C:        &lt;reseller:url&gt;http://reseller.example&lt;/reseller:url&gt;
-C:        &lt;reseller:whoisInfo&gt;
-C:          &lt;reseller:name&gt;whois.nic.example&lt;/reseller:name&gt;
-C:          &lt;reseller:url&gt;http://whois.nic.example&lt;/reseller:url&gt;
-C:        &lt;/reseller:whoisInfo&gt;
 C:        &lt;reseller:contact type="admin"&gt;sh8013&lt;/reseller:contact&gt;
 C:        &lt;reseller:contact type="billing"&gt;sh8013&lt;/reseller:contact&gt;
 C:        &lt;reseller:disclose flag="0"&gt;
@@ -956,7 +937,7 @@ S:&lt;/epp&gt;
 <p/>
 
 <ul>
-  <li>One or more &lt;reseller:contact&gt; elements that contain the identifiers for contact objects to be associated with or removed from the reseller object.  Contact object identifiers MUST be known to the server before the contact object can be associated with the reseller object.</li>
+  <li>Zero or more &lt;reseller:contact&gt; elements that contain the identifiers for contact objects to be associated with or removed from the reseller object. Contact object identifiers MUST be known to the server before the contact object can be associated with the reseller object.</li>
 </ul>
 
 <p> </p>
@@ -971,7 +952,6 @@ S:&lt;/epp&gt;
   <li>An OPTIONAL &lt;reseller:fax&gt; element that contains the reseller's facsimile telephone number.</li>
   <li>A &lt;reseller:email&gt; element that contains the reseller's email address.</li>
   <li>A &lt;reseller:url&gt; element that contains the reseller's web home page.</li>
-  <li>An OPTIONAL &lt;reseller:whoisInfo&gt; elements that contains whois information. The &lt;reseller:whoisInfo&gt; element contains the following child elements: <ul><li>An OPTIONAL &lt;name&gt; element that contains the name of the reseller WHOIS server.</li><li>An OPTIONAL &lt;url&gt; element that contains the url of the reseller WHOIS server.</li></ul><p> </p></li>
   <li>An OPTIONAL &lt;reseller:disclose&gt; element that identifies elements that require exceptional server-operator handling to allow or restrict disclosure to third parties. See Section 2.9 in <a href="#RFC5733">[RFC5733]</a> for a description of the child elements contained within the &lt;reseller:disclose&gt; element.</li>
 </ul>
 
@@ -1077,8 +1057,6 @@ S:&lt;/epp&gt;
    &lt;simpleType name="stateType"&gt;
      &lt;restriction base="token"&gt;
        &lt;enumeration value="ok"/&gt;
-       &lt;enumeration value="public"/&gt;
-       &lt;enumeration value="private"/&gt;
        &lt;enumeration value="readonly"/&gt;
        &lt;enumeration value="terminated"/&gt;
      &lt;/restriction&gt;
@@ -1121,15 +1099,6 @@ S:&lt;/epp&gt;
        &lt;element name="cc" type="contact:ccType"/&gt;
      &lt;/sequence&gt;
    &lt;/complexType&gt;
-
-   &lt;complexType name="whoisInfoType"&gt;
-     &lt;sequence&gt;
-       &lt;element name="name"
-        type="eppcom:labelType" minOccurs="0"/&gt;
-       &lt;element name="url"
-        type="anyURI" minOccurs="0"/&gt;
-     &lt;/sequence&gt;
-   &lt;/complexType&gt;
 	 
    &lt;complexType name="discloseType"&gt;
      &lt;sequence&gt;
@@ -1168,8 +1137,6 @@ S:&lt;/epp&gt;
         &lt;element name="email" type="eppcom:minTokenType"/&gt;
         &lt;element name="url" type="anyURI" 
          minOccurs="0"/&gt;
-        &lt;element name="whoisInfo" type="reseller:whoisInfoType"
-         minOccurs="0"/&gt; 
         &lt;element name="contact" type="reseller:contactType"
          minOccurs="0" maxOccurs="3"/&gt; 
         &lt;element name="disclose" type="reseller:discloseType"
@@ -1248,8 +1215,6 @@ S:&lt;/epp&gt;
         &lt;element name="email" type="eppcom:minTokenType"
          minOccurs="0"/&gt;
         &lt;element name="url" type="anyURI"
-         minOccurs="0"/&gt;
-        &lt;element name="whoisInfo" type="reseller:whoisInfoType" 
          minOccurs="0"/&gt;		 
         &lt;element name="disclose" type="reseller:discloseType"
          minOccurs="0"/&gt;
@@ -1331,9 +1296,7 @@ S:&lt;/epp&gt;
          minOccurs="0"/&gt;
         &lt;element name="email" type="eppcom:minTokenType"/&gt;
         &lt;element name="url" type="anyURI"
-         minOccurs="0"/&gt;
-        &lt;element name="whoisInfo" type="reseller:whoisInfoType" 
-		 minOccurs="0"/&gt;	
+         minOccurs="0"/&gt;	
         &lt;element name="contact" type="reseller:contactType"
          minOccurs="0" maxOccurs="3"/&gt; 	 	 
         &lt;element name="clID" type="eppcom:clIDType"/&gt;

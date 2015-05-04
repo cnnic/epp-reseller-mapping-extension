@@ -5,11 +5,11 @@
 Internet Engineering Task Force                                  L. Zhou
 Internet-Draft                                                   N. Kong
 Intended status: Standards Track                                   C. Qi
-Expires: November 2, 2015                                         X. Lee
+Expires: November 5, 2015                                         X. Lee
                                                                    CNNIC
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                             May 1, 2015
+                                                             May 4, 2015
 
 
         Extensible Provisioning Protocol (EPP) Reseller Mapping
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 2, 2015.
+   This Internet-Draft will expire on November 5, 2015.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Zhou, et al.            Expires November 2, 2015                [Page 1]
+Zhou, et al.            Expires November 5, 2015                [Page 1]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
@@ -86,35 +86,33 @@ Table of Contents
      3.3.  Reseller State  . . . . . . . . . . . . . . . . . . . . .   4
      3.4.  Parent Identifier . . . . . . . . . . . . . . . . . . . .   4
      3.5.  URL . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     3.6.  WHOIS Information . . . . . . . . . . . . . . . . . . . .   5
-     3.7.  Disclosure of Data Elements and Attributes  . . . . . . .   5
+     3.6.  Disclosure of Data Elements and Attributes  . . . . . . .   5
    4.  EPP Command Mapping . . . . . . . . . . . . . . . . . . . . .   5
-     4.1.  EPP Query Commands  . . . . . . . . . . . . . . . . . . .   6
-       4.1.1.  EPP <check> Command . . . . . . . . . . . . . . . . .   6
-       4.1.2.  EPP <info> Command  . . . . . . . . . . . . . . . . .   8
+     4.1.  EPP Query Commands  . . . . . . . . . . . . . . . . . . .   5
+       4.1.1.  EPP <check> Command . . . . . . . . . . . . . . . . .   5
+       4.1.2.  EPP <info> Command  . . . . . . . . . . . . . . . . .   7
        4.1.3.  EPP <transfer> Command  . . . . . . . . . . . . . . .  13
      4.2.  EPP Transform Commands  . . . . . . . . . . . . . . . . .  13
        4.2.1.  EPP <create> Command  . . . . . . . . . . . . . . . .  13
-       4.2.2.  EPP <delete> Command  . . . . . . . . . . . . . . . .  17
+       4.2.2.  EPP <delete> Command  . . . . . . . . . . . . . . . .  16
        4.2.3.  EPP <renew> Command . . . . . . . . . . . . . . . . .  18
        4.2.4.  EPP <transfer> Command  . . . . . . . . . . . . . . .  18
-       4.2.5.  EPP <update> Command  . . . . . . . . . . . . . . . .  19
-   5.  Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . .  22
-   6.  Internationalization Considerations . . . . . . . . . . . . .  29
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  29
-     7.1.  XML Namespace . . . . . . . . . . . . . . . . . . . . . .  29
-     7.2.  EPP Extension Registry  . . . . . . . . . . . . . . . . .  29
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  30
-   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  30
+       4.2.5.  EPP <update> Command  . . . . . . . . . . . . . . . .  18
+   5.  Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . .  21
+   6.  Internationalization Considerations . . . . . . . . . . . . .  27
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
+     7.1.  XML Namespace . . . . . . . . . . . . . . . . . . . . . .  28
+     7.2.  EPP Extension Registry  . . . . . . . . . . . . . . . . .  28
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
+   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  29
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
 
 
 
-Zhou, et al.            Expires November 2, 2015                [Page 2]
+Zhou, et al.            Expires November 5, 2015                [Page 2]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
-
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
 
 1.  Introduction
 
@@ -165,7 +163,9 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
 
-Zhou, et al.            Expires November 2, 2015                [Page 3]
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 3]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
@@ -187,20 +187,18 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 3.3.  Reseller State
 
    A reseller object MUST always have at least one associated state
-   value.  Valid values include "ok", "public", "private", "readonly"
-   and "terminated".
+   value.  Valid values include "ok", "readonly" and "terminated".
 
    State Value Descriptions:
 
    o  ok: the normal status value for the reseller object.
 
-   o  public: the reseller object can be shared by different registrars.
+   o  readonly: transform commands submitted with the reseller
+      identifier in the reseller extension would not be allowed.
 
-   o  private: the reseller object belongs to designated registrar.
-
-   o  readonly: the reseller object cannot be updated.
-
-   o  terminated: deactivated object that cannot be used any more.
+   o  terminated: query and tranform commands submitted with the
+      reseller identifier in the reseller extension would not be
+      allowed.
 
 3.4.  Parent Identifier
 
@@ -221,17 +219,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
 
-Zhou, et al.            Expires November 2, 2015                [Page 4]
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 4]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
-3.6.  WHOIS Information
-
-   The WHOIS information contains the name and URL of a reseller's WHOIS
-   server.
-
-3.7.  Disclosure of Data Elements and Attributes
+3.6.  Disclosure of Data Elements and Attributes
 
    This document supports the same disclosure features described in
    Section 2.9 of with the use of the <reseller:disclose> element.
@@ -243,10 +238,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    <reseller:name type="int"/>
 
    <reseller:name type="loc"/>
-
-   <reseller:org type="int"/>
-
-   <reseller:org type="loc"/>
 
    <reseller:addr type="int"/>
 
@@ -260,8 +251,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    <reseller:url/>
 
-   <reseller:whoisInfo/>
-
    <reseller:contact/>
 
 4.  EPP Command Mapping
@@ -270,17 +259,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    in the EPP core protocol specification [RFC5730].  The command
    mappings described here are specifically for use in provisioning and
    managing reseller information via EPP.
-
-
-
-
-
-
-
-Zhou, et al.            Expires November 2, 2015                [Page 5]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
 
 4.1.  EPP Query Commands
 
@@ -295,6 +273,15 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    The EPP <check> command is used to determine if an object can be
    provisioned within a repository.  It provides a hint that allows a
    client to anticipate the success or failure of provisioning an object
+
+
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 5]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
    using the <create> command, as object-provisioning requirements are
    ultimately a matter of server policy.
 
@@ -330,14 +317,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    element contains one or more <reseller:cd> elements that contain the
    following child elements:
 
-
-
-
-Zhou, et al.            Expires November 2, 2015                [Page 6]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    o  A <reseller:id> element that identifies the queried object.  This
       element MUST contain an "avail" attribute whose value indicates
       object availability (can it be provisioned or not) at the moment
@@ -351,6 +330,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
       provisioned.  This text MUST be represented in the response
       language previously negotiated with the client; an OPTIONAL "lang"
       attribute MAY be present to identify the language if the
+
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 6]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
       negotiated value is something other than the default value of
       "en"(English).
 
@@ -385,15 +372,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    S:  </response>
    S:</epp>
 
-
-
-
-
-Zhou, et al.            Expires November 2, 2015                [Page 7]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    An EPP error response MUST be returned if a <check> command cannot be
    processed for any reason.
 
@@ -407,6 +385,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    o  A <reseller:id> element that contains the server-unique identifier
       of the reseller object to be queried.
+
+
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 7]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
 
    Example <info> command:
 
@@ -442,14 +428,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    o  An OPTIONAL <reseller:parentId> element that contains the
       identifier of the parent object, as defined in Section 3.4.
 
-
-
-
-Zhou, et al.            Expires November 2, 2015                [Page 8]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    o  One or two <reseller:postalInfo> elements that contain postal-
       address information.  Two elements are provided so that address
       information can be provided in both internationalized and
@@ -463,6 +441,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
       *  A <reseller:name> element that contains the name of the
          reseller, which SHOULD be the name of the organization.
+
+
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 8]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
 
       *  A <reseller:addr> element that contains address information
          associated with the reseller.  A <reseller:addr> element
@@ -494,25 +480,7 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    o  A <reseller:url> element that contains the reseller's web home
       page.
 
-   o  An OPTIONAL <reseller:whoisInfo> elements that contains whois
-      information.  The <reseller:whoisInfo> element contains the
-      following child elements:
-
-
-
-
-Zhou, et al.            Expires November 2, 2015                [Page 9]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
-      *  An OPTIONAL <name> element that contains the name of the
-         reseller WHOIS server.
-
-      *  An OPTIONAL <url> element that contains the url of the reseller
-         WHOIS server.
-
-   o  One or more OPTIONAL <reseller:contact> elements that contain
+   o  Zero or more OPTIONAL <reseller:contact> elements that contain
       identifiers for the contact objects to be associated with the
       reseller object.  Contact object identifiers MUST be known to the
       server before the contact object can be associated with the
@@ -529,7 +497,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    o  A <reseller:upID> element that contains the identifier of the
       client that last updated the reseller object.  This element MUST
-      NOT be present if the contact has never been modified.
+      NOT be present if the reseller has never been modified.
+
+
+
+Zhou, et al.            Expires November 5, 2015                [Page 9]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
 
    o  A <reseller:upDate> element that contains the date and time of the
       most recent reseller-object modification.  This element MUST NOT
@@ -537,11 +512,54 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    o  An OPTIONAL <reseller:disclose> element that identifies elements
       that require exceptional server-operator handling to allow or
-      restrict disclosure to third parties.  See Section 3.7 for a
+      restrict disclosure to third parties.  See Section 3.6 for a
       description of the child elements contained within the
       <reseller:disclose> element.
 
    Example <info> response for the sponsoring client:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 10]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
    S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -554,14 +572,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    S:      <reseller:infData
    S:       xmlns:reseller="urn:ietf:params:xml:ns:reseller-1.0">
    S:        <reseller:id>res1523</reseller:id>
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 10]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    S:        <reseller:roid>res1523-REP</reseller:roid>
    S:        <reseller:state>ok</reseller:state>
    S:        <reseller:parentId>1523res</reseller:parentId>
@@ -580,10 +590,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    S:        <reseller:fax>+1.7035555556</reseller:fax>
    S:        <reseller:email>contact@reseller.example</reseller:email>
    S:        <reseller:url>http://reseller.example</reseller:url>
-   S:        <reseller:whoisInfo>
-   S:          <reseller:name>whois.nic.example</reseller:name>
-   S:          <reseller:url>http://whois.nic.example</reseller:url>
-   S:        </reseller:whoisInfo>
    S:        <reseller:contact type="admin">sh8013</reseller:contact>
    S:        <reseller:contact type="billing">sh8013</reseller:contact>
    S:        <reseller:clID>ClientY</reseller:clID>
@@ -604,18 +610,16 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    S:  </response>
    S:</epp>
 
-   Example <info> for the non-sponsoring client, according to the
-   disclosure policy:
 
 
 
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 11]
+Zhou, et al.            Expires November 5, 2015               [Page 11]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
+   Example <info> for the non-sponsoring client, according to the
+   disclosure policy:
 
 
    S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -662,17 +666,16 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    S:  </response>
    S:</epp>
 
-   An EPP error response MUST be returned if an <info> command cannot be
-   processed for any reason.
 
 
 
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 12]
+Zhou, et al.            Expires November 5, 2015               [Page 12]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
+
+   An EPP error response MUST be returned if an <info> command cannot be
+   processed for any reason.
 
 4.1.3.  EPP <transfer> Command
 
@@ -712,23 +715,23 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    The <reseller:create> element contains the following child elements:
 
    o  A <reseller:id> element that contains the desired server-unique
-      identifier for the contact to be created, as defined in
+      identifier for the reseller to be created, as defined in
       Section 3.1.
 
    o  A <reseller:state> element that contains the operational status of
       the reseller, as defined in Section 3.3.
 
-   o  An OPTIONAL <reseller:parentId> element that contains the
-      identifier of the parent object, as defined in Section 3.4.
 
 
 
 
-
-Zhou, et al.            Expires November 2, 2015               [Page 13]
+Zhou, et al.            Expires November 5, 2015               [Page 13]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
+
+   o  An OPTIONAL <reseller:parentId> element that contains the
+      identifier of the parent object, as defined in Section 3.4.
 
    o  One or two <reseller:postalInfo> elements that contain postal-
       address information.  Two elements are provided so that address
@@ -774,72 +777,26 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    o  A <reseller:url> element that contains the reseller's web home
       page.
 
-   o  An OPTIONAL <reseller:whoisInfo> elements that contains whois
-      information.  The <reseller:whoisInfo> element contains the
-      following child elements:
 
 
 
 
-Zhou, et al.            Expires November 2, 2015               [Page 14]
+Zhou, et al.            Expires November 5, 2015               [Page 14]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
-      *  An OPTIONAL <name> element that contains the name of the
-         reseller WHOIS server.
-
-      *  An OPTIONAL <url> element that contains the url of the reseller
-         WHOIS server.
-
-   o  One or more OPTIONAL <reseller:contact> elements that contain
+   o  Zero or more OPTIONAL <reseller:contact> elements that contain
       identifiers for the human or organizational social information
       objects associated with the reseller object.
 
    o  An OPTIONAL <reseller:disclose> element that identifies elements
       that require exceptional server-operator handling to allow or
-      restrict disclosure to third parties.  See Section 3.7 for a
+      restrict disclosure to third parties.  See Section 3.6 for a
       description of the child elements contained within the
       <reseller:disclose> element.
 
    Example <create> command:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 15]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
    C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -866,10 +823,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    C:        <reseller:fax>+1.7035555556</reseller:fax>
    C:        <reseller:email>contact@reseller.example</reseller:email>
    C:        <reseller:url>http://reseller.example</reseller:url>
-   C:        <reseller:whoisInfo>
-   C:          <reseller:name>whois.nic.example</reseller:name>
-   C:          <reseller:url>http://whois.nic.example</reseller:url>
-   C:        </reseller:whoisInfo>
    C:        <reseller:contact type="admin">sh8013</reseller:contact>
    C:        <reseller:contact type="billing">sh8013</reseller:contact>
    C:        <reseller:disclose flag="0">
@@ -882,6 +835,13 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    C:  </command>
    C:</epp>
 
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 15]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
    When a <create> command has been processed successfully, the EPP
    <resData> element MUST contain a child <reseller:creData> element
    that identifies the reseller namespace.  The <reseller:creData>
@@ -889,14 +849,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    o  A <reseller:id> element that contains the server-unique identifier
       for the created reseller, as defined in Section 3.1..
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 16]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
 
    o  A <reseller:crDate> element that contains the date and time of
       reseller-object creation.
@@ -939,20 +891,19 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    o  A <reseller:id> element that contains the server-unique identifier
       of the reseller object, as defined in Section 3.1, to be deleted.
 
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 16]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
    A reseller object SHOULD NOT be deleted if it is associated with
    other known objects.  An associated reseller SHOULD NOT be deleted
    until associations with other known objects have been broken.  A
    server SHOULD notify clients that object relationships exist by
    sending a 2305 error response code when a <delete> command is
    attempted and fails due to existing object relationships.
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 17]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
 
    Example <delete> command:
 
@@ -992,6 +943,17 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    An EPP error response MUST be returned if a <delete> command cannot
    be processed for any reason.
 
+
+
+
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 17]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
 4.2.3.  EPP <renew> Command
 
    Renewal semantics do not apply to reseller objects, so there is no
@@ -1001,14 +963,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    Transfer semantics do not apply to reseller objects, so there is no
    mapping defined for the EPP <transfer> command.
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 18]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
 
 4.2.5.  EPP <update> Command
 
@@ -1036,7 +990,7 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    <reseller:add> and <reseller:rem> elements contain the following
    child element:
 
-   o  One or more <reseller:contact> elements that contain the
+   o  Zero or more <reseller:contact> elements that contain the
       identifiers for contact objects to be associated with or removed
       from the reseller object.  Contact object identifiers MUST be
       known to the server before the contact object can be associated
@@ -1048,6 +1002,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    o  A <reseller:state> element that contains the operational status of
       the reseller.
 
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 18]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
    o  An OPTIONAL <reseller:parentId> element that contains the
       identifier of the parent object.
 
@@ -1058,14 +1020,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
       forms.  If an internationalized form (type="int") is provided,
       element content MUST be represented in a subset of UTF-8 that can
       be represented in the 7-bit US-ASCII character set.  If a
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 19]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
       localized form (type="loc") is provided, element content MAY be
       represented in unrestricted UTF-8.  The <reseller:postalInfo>
       element contains the following child elements:
@@ -1103,21 +1057,11 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    o  A <reseller:url> element that contains the reseller's web home
       page.
 
-   o  An OPTIONAL <reseller:whoisInfo> elements that contains whois
-      information.  The <reseller:whoisInfo> element contains the
-      following child elements:
-
-      *  An OPTIONAL <name> element that contains the name of the
-         reseller WHOIS server.
-
-      *  An OPTIONAL <url> element that contains the url of the reseller
-         WHOIS server.
 
 
 
 
-
-Zhou, et al.            Expires November 2, 2015               [Page 20]
+Zhou, et al.            Expires November 5, 2015               [Page 19]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
@@ -1173,7 +1117,7 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
 
-Zhou, et al.            Expires November 2, 2015               [Page 21]
+Zhou, et al.            Expires November 5, 2015               [Page 20]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
@@ -1229,7 +1173,7 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
 
-Zhou, et al.            Expires November 2, 2015               [Page 22]
+Zhou, et al.            Expires November 5, 2015               [Page 21]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
@@ -1255,8 +1199,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
       <simpleType name="stateType">
         <restriction base="token">
           <enumeration value="ok"/>
-          <enumeration value="public"/>
-          <enumeration value="private"/>
           <enumeration value="readonly"/>
           <enumeration value="terminated"/>
         </restriction>
@@ -1282,16 +1224,16 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
         <sequence>
           <element name="name" type="contact:postalLineType"/>
           <element name="addr" type="reseller:addrType"/>
+        </sequence>
+        <attribute name="type" type="contact:postalInfoEnumType"
 
 
 
-Zhou, et al.            Expires November 2, 2015               [Page 23]
+Zhou, et al.            Expires November 5, 2015               [Page 22]
 
 Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
-        </sequence>
-        <attribute name="type" type="contact:postalInfoEnumType"
          use="required"/>
       </complexType>
 
@@ -1305,15 +1247,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
           <element name="pc" type="contact:pcType"
            minOccurs="0"/>
           <element name="cc" type="contact:ccType"/>
-        </sequence>
-      </complexType>
-
-      <complexType name="whoisInfoType">
-        <sequence>
-          <element name="name"
-           type="eppcom:labelType" minOccurs="0"/>
-          <element name="url"
-           type="anyURI" minOccurs="0"/>
         </sequence>
       </complexType>
 
@@ -1338,14 +1271,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
       <!--
       Child elements of the <create> command.
       -->
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 24]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
           <complexType name="createType">
          <sequence>
            <element name="id" type="eppcom:clIDType"/>
@@ -1357,12 +1282,18 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
             maxOccurs="2"/>
            <element name="voice" type="contact:e164Type"
             minOccurs="0"/>
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 23]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
            <element name="fax" type="contact:e164Type"
             minOccurs="0"/>
            <element name="email" type="eppcom:minTokenType"/>
            <element name="url" type="anyURI"
-            minOccurs="0"/>
-           <element name="whoisInfo" type="reseller:whoisInfoType"
             minOccurs="0"/>
            <element name="contact" type="reseller:contactType"
             minOccurs="0" maxOccurs="3"/>
@@ -1394,14 +1325,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
       Child elements of the <info> commands.
       -->
        <complexType name="infoType">
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 25]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
          <sequence>
            <element name="id" type="eppcom:clIDType"/>
          </sequence>
@@ -1415,6 +1338,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
            <element name="id" type="eppcom:clIDType"/>
            <element name="add" type="reseller:addRemType"
             minOccurs="0"/>
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 24]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
            <element name="rem" type="reseller:addRemType"
             minOccurs="0"/>
            <element name="chg" type="reseller:chgType"
@@ -1439,7 +1370,7 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
          <sequence>
            <element name="state" type="reseller:stateType"
             minOccurs="0"/>
-            <element name="parentId" type="eppcom:clIDType"
+                <element name="parentId" type="eppcom:clIDType"
             minOccurs="0"/>
            <element name="postalInfo" type="reseller:chgPostalInfoType"
             minOccurs="0" maxOccurs="2"/>
@@ -1450,16 +1381,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
            <element name="email" type="eppcom:minTokenType"
             minOccurs="0"/>
            <element name="url" type="anyURI"
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 26]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
-            minOccurs="0"/>
-           <element name="whoisInfo" type="reseller:whoisInfoType"
             minOccurs="0"/>
            <element name="disclose" type="reseller:discloseType"
             minOccurs="0"/>
@@ -1473,6 +1394,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
            <element name="org" type="contact:optPostalLineType"
             minOccurs="0"/>
            <element name="addr" type="reseller:addrType"
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 25]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
             minOccurs="0"/>
          </sequence>
          <attribute name="type" type="contact:postalInfoEnumType"
@@ -1506,14 +1435,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
        <complexType name="checkIDType">
          <simpleContent>
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 27]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
            <extension base="eppcom:clIDType">
              <attribute name="avail" type="boolean"
               use="required"/>
@@ -1529,6 +1450,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
            <element name="id" type="eppcom:clIDType"/>
            <element name="crDate" type="dateTime"/>
          </sequence>
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 26]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
        </complexType>
 
       <!--
@@ -1538,7 +1467,7 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
          <sequence>
            <element name="id" type="eppcom:clIDType"/>
            <element name="roid" type="eppcom:roidType"/>
-             <element name="state" type="reseller:stateType"/>
+                     <element name="state" type="reseller:stateType"/>
            <element name="parentId" type="eppcom:clIDType"
             minOccurs="0"/>
            <element name="postalInfo" type="reseller:postalInfoType"
@@ -1550,8 +1479,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
            <element name="email" type="eppcom:minTokenType"/>
            <element name="url" type="anyURI"
             minOccurs="0"/>
-           <element name="whoisInfo" type="reseller:whoisInfoType"
-            minOccurs="0"/>
            <element name="contact" type="reseller:contactType"
             minOccurs="0" maxOccurs="3"/>
            <element name="clID" type="eppcom:clIDType"/>
@@ -1562,14 +1489,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
            <element name="upDate" type="dateTime"
             minOccurs="0"/>
            <element name="disclose" type="reseller:discloseType"
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 28]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
             minOccurs="0"/>
          </sequence>
        </complexType>
@@ -1586,6 +1505,15 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    information using the Unicode character set and its more compact
    representations including UTF-8.  Conformant XML processors recognize
    both UTF-8 and UTF-16.  Though XML includes provisions to identify
+
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 27]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
+
    and use other character encodings through use of an "encoding"
    attribute in an <?xml?> declaration, use of UTF-8 is RECOMMENDED.
 
@@ -1618,14 +1546,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    the IANA in the EPP Extension Registry described in [RFC7451].  The
    details of the registration are as follows:
 
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 29]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    Name of Extension: Domain Reseller Object Extension
 
    Document status: Standards Track
@@ -1642,6 +1562,13 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    Status: active
 
    Notes: none
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 28]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
 
 8.  Security Considerations
 
@@ -1671,17 +1598,6 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
    [RFC7451]  Hollenbeck, S., "Extension Registry for the Extensible
               Provisioning Protocol", RFC 7451, February 2015.
 
-
-
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 30]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    [W3C.REC-xml-20040204]
               Bray, T., Paoli, J., Sperberg-McQueen, C., Maler, E., and
               F. Yergeau, ""Extensible Markup Language (XML) 1.0 (Third
@@ -1701,6 +1617,14 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
               Second Edition", World Wide Web Consortium Recommendation
               REC-xmlschema-2-20041028", October 2004,
               <http://www.w3.org/TR/2004/REC-xmlschema-2-20041028>.
+
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 29]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
+
 
 Authors' Addresses
 
@@ -1724,20 +1648,6 @@ Authors' Addresses
    Email: nkong@cnnic.cn
 
 
-
-
-
-
-
-
-
-
-
-Zhou, et al.            Expires November 2, 2015               [Page 31]
-
-Internet-Draft            EPP Reseller Mapping                  May 2015
-
-
    Chao Qi
    CNNIC
    4 South 4th Street, Zhongguancun, Haidian District
@@ -1756,6 +1666,20 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
    Phone: +86 10 5881 3020
    Email: xl@cnnic.cn
+
+
+
+
+
+
+
+
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 30]
+
+Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
    James Gould
@@ -1789,4 +1713,24 @@ Internet-Draft            EPP Reseller Mapping                  May 2015
 
 
 
-Zhou, et al.            Expires November 2, 2015               [Page 32]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Zhou, et al.            Expires November 5, 2015               [Page 31]
